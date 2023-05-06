@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20px, 1fr));
+  }
+  
+  .row {
+    display: contents;
+  }
+  
+  .cell {
+    width: 100%;
+    padding-top: 100%;
+  }
+  
+  @media (min-width: 640px) {
+    .grid {
+      grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .grid {
+      grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+    }
+  }

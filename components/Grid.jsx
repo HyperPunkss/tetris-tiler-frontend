@@ -12,7 +12,7 @@ const Grid = ({ rows, columns }) => {
   };
 
   const cellClasses = {
-    small: 'w-2 h-2',
+    small: 'w-6 h-6',
     medium: 'w-8 h-8',
     large: 'w-10 h-10',
   };
@@ -34,11 +34,11 @@ const Grid = ({ rows, columns }) => {
   }
   return (
     <div>
-      {/* <select onChange={handleSizeChange}>
+      <select onChange={handleSizeChange}>
         <option value="small">Small</option>
         <option value="medium">Medium</option>
         <option value="large">Large</option>
-      </select> */}
+      </select>
       <div className="flex flex-col">{grid}</div>
     </div>
   );
