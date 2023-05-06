@@ -1,13 +1,16 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 
-function ColRowPicker({onColRowChange}) {
-    const [colValue, setColValue] = useState(5)
-    const [rowValue, setRowValue] = useState(5)
+function ColRowPicker({ onColRowChange }) {
+    const [colValue, setColValue] = useState(5);
+    const [rowValue, setRowValue] = useState(5);
 
     useEffect(() => {
-        onColRowChange([colValue,rowValue])
-    }, [colValue,rowValue])
+        onColRowChange([colValue, rowValue]);
+    }, [colValue, rowValue]);
 
+    function handleValueChange(event) {
+        event.preventDefault();
+    }
 
     return (
         <div className="my-4">
@@ -26,6 +29,7 @@ function ColRowPicker({onColRowChange}) {
                 max={100}
                 defaultValue={5}
                 onChange={(e) => setColValue(e.target.value)}
+                onKeyDown={handleValueChange}
             />
 
             {/*Row*/}
@@ -38,6 +42,7 @@ function ColRowPicker({onColRowChange}) {
                 max={100}
                 defaultValue={5}
                 onChange={(e) => setRowValue(e.target.value)}
+                onKeyDown={handleValueChange}
             />
         </div>
     );

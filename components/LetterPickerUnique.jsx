@@ -33,17 +33,15 @@ function LetterPicker({onUniqueLetterChange}) {
 
     useEffect(() => {
         onUniqueLetterChange(specificLetterID)
-    }, [specificLetterID])
+    }, [specificLetterID,onUniqueLetterChange])
 
     function handleRadioChange(e) {
         setSpecificLetterID(e.target.id)
     }
 
+    
     return (
         <>
-            <div className="">
-                <button className="rounded bg-white p-2 my-2 border-2 border-black flex">Submit Shape</button>
-            </div>
             <div className="grid grid-cols-3 my-4 mr-36">
                 {images.map((image) => (
                     <>
