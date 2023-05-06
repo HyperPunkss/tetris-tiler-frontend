@@ -19,7 +19,6 @@ export default function Home() {
     // axios.get('/url/user').then((response) => {
     //   setShapes(JSON.parse(response.data))
     // })
-    
     setShapes(JSON.parse(testObjJSON))
     console.log(shapes);
     for(let i=0; i<shapes.length; i++){
@@ -29,6 +28,7 @@ export default function Home() {
   }
 
   //TASK 10 - Generating Data and Sending them to the API with Axios 
+  function task10apiCall(){
     var data = JSON.stringify({
         x: 5,
         y: 5,
@@ -46,12 +46,13 @@ export default function Home() {
     axios.post("/api/user", data).then(
         (response) => {
             const data = response.data;
-            //console.log(response)
         },
         (error) => {
-            //console.log(error);
         }
     );
+  }
+
+    
 
     //Letter Compare and returning the matching Colour
     const letterArray = [
