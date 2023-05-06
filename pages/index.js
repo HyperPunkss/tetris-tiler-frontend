@@ -39,9 +39,49 @@ export default function Home() {
         });
     }
 
+    //TASK 4
+    function task4apiCall(){
+        const finalBlackCellsArray = []; 
+    for (let i = 0; i < blackCellsArray.length; i++) {
+        finalBlackCellsArray.push([blackCellsArray[i].col, rowData4 - blackCellsArray[i].row - 1]);
+    }     
+    let task4data = JSON.stringify({
+        "gridSizeX": rowData4,
+        "gridSizeY": columnData4,
+        "letter": uniqueLetterData4,
+        "blackHoles": finalBlackCellsArray,
+        "allowRotations": true,
+        "allowFlip": true
+      });
+      console.log(task4data);
+      let config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: 'http://matsaki95.ddns.net:8900/api/v1/a4-task',
+        headers: { 
+          'Key': 'Content-Type', 
+          'Value': 'application/json', 
+          'Content-Type': 'application/json'
+        },
+        data : task4data
+      };
+      
+      axios.request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }
+
+    
+
+
+
     //TASK 10 - Generating Data and Sending them to the API with Axios
     function task10apiCall() {
-        var data = JSON.stringify({
+        var task10data = JSON.stringify({
             x: 5,
             y: 5,
             holes: [{ x: 2, y: 2 }],
@@ -55,7 +95,7 @@ export default function Home() {
         //   url: 'api',
         //   data: data
         // }
-        axios.post("/api/user", data).then(
+        axios.post("/api/user", task10data).then(
             (response) => {
                 const data = response.data;
                 //console.log(response)
@@ -189,6 +229,9 @@ export default function Home() {
                 <div>
                     <LetterPickerUnique onUniqueLetterChange={handleUniqueLetterChange4} />
                 </div>
+                <button className="rounded bg-white p-2 my-2 border-2 border-black flex" onClick={task4apiCall}>
+                    Generate the thingies
+                </button>
             </div>
         </div>
     );
