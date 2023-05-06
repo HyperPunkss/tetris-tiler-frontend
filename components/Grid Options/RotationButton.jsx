@@ -20,7 +20,7 @@ function RotationButton({ onRotationChange }) {
             {/*Column*/}
             <select
                 name="sizePicker"
-                className="border-[2px] border-purple-700 bg-gray-200 p-2 rounded-lg shadow-md w-[120px] h-[43px] mr-4"
+                className="hover:cursor-pointer border-[2px] border-purple-700 bg-gray-200 p-2 rounded-lg shadow-md w-[120px] h-[43px] mr-4"
                 value={isRotationTrue}
                 onChange={handleRotationChange}
             >

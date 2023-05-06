@@ -78,7 +78,7 @@ const Grid = ({ rows, columns, sizeData, colorData, isClickable, onHandleBlackCe
             const isBlack = blackCells.some((cell) => cell.row === i && cell.col === j);
             row.push(
                 <div
-                    className={`${cellClasses[sizeData]} border border-black`}
+                    className={`${cellClasses[sizeData]} border border-black cursor-pointer`}
                     key={id}
                     onClick={isClickable ? () => handleClick(id) : undefined}
                     style={{ backgroundColor: isBlack ? "#000000" : cellColors[i * columns + j] }}
