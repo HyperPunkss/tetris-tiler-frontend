@@ -424,6 +424,14 @@ export default function Home() {
                     <p>We are gonna showcase the preious task`s shape in Plain Text</p>
                     <p>{task5content}</p>
                 </div>
+                <h1 className="font-semibold bg-[#f89622] p-2 rounded my-4">TASK 9</h1>
+                <div>
+                    <p>The Function has already been showing some of the times on the previous Headers, but we will show all the times here again.</p>
+                    <p>Task 2 time: {task2time}ms</p>
+                    <p>Task 3 time: {task3time}ms</p>
+                    <p>Task 4 time: {task4time}ms</p>
+                    <p>Task 5 time: {task5time}ms</p>
+                </div>
         </div>
     );
 }
