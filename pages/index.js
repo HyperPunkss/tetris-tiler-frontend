@@ -162,126 +162,148 @@ export default function Home() {
             </div>
         );
     });
-    
+
     console.log("SHOW ALL BUTTON", showAllButton);
     console.log("SHOWALL", showAll);
     return (
         <div className="my-4 p-2 md:px-6 lg:px-14">
-            <h1 className="font-semibold bg-red-500 p-2 rounded">TASK 1</h1>
-            <div className="flex flex-col my-4">
-                <div className="flex justify-center items-center">
-                    <Grid
-                        isClickable={false}
-                        rows={rowData1}
-                        columns={columnData1}
-                        sizeData={sizeData}
-                        colorData={""}
-                        onHandleBlackCellsArray={handleBlackCellsArray}
-                    />
-                </div>
-                <div className="flex justify-center items-center p-4">
-                    <SizePicker onSizeChange={handleSizeChange} />
-                    <ColRowPicker onColRowChange={handleColRowChange1} />
+            <div className="flex justify-between items-start bg-red-500 p-2 rounded my-4">
+                <h1 className="font-semibold ">TASK 1</h1>
+                <h1 className="font-semibold ">Time : </h1>
+            </div>
+
+            <div className="border-2 border-red-200 ">
+                <div className="flex flex-col my-4">
+                    <div className="flex justify-center items-center">
+                        <Grid
+                            isClickable={false}
+                            rows={rowData1}
+                            columns={columnData1}
+                            sizeData={sizeData}
+                            colorData={""}
+                            onHandleBlackCellsArray={handleBlackCellsArray}
+                        />
+                    </div>
+                    <div className="flex justify-center items-center p-4">
+                        <SizePicker onSizeChange={handleSizeChange} />
+                        <ColRowPicker onColRowChange={handleColRowChange1} />
+                    </div>
                 </div>
             </div>
-            <h1 className="font-semibold bg-[#f89622] p-2 rounded">TASK 2</h1>
-            <div className="md:ml-4 lg:ml-8 my-4">
-                <button className="rounded bg-white p-2 my-2 border-2 border-black flex" onClick={task2apiCall}>
-                    Generate all the shapes!
-                </button>
+            <div className="flex justify-between items-start bg-[#f89622] p-2 rounded my-4">
+                <h1 className="font-semibold">TASK 2</h1>
+                <h1 className="font-semibold">Time :</h1>
             </div>
-            {shapes.map((shape, i) => {
-                return (
-                    <>
-                        <div className="inline-block mx-2 text-center">
-                            <Grid
-                                onHandleBlackCellsArray={handleBlackCellsArray}
-                                key={i}
-                                rows={5}
-                                columns={5}
-                                sizeData={sizeData}
-                                colorData={shape.content}
-                            />
+            <div className="border-2 border-orange-200">
+                <div className="flex justify-center items-center md:ml-4 lg:ml-8 my-4">
+                    <button className="hover:bg-orange-200 rounded bg-white p-2 my-2 border-2 border-black flex" onClick={task2apiCall}>
+                        Generate all the shapes!
+                    </button>
+                </div>
+                {shapes.map((shape, i) => {
+                    return (
+                        <>
+                            <div className="inline-block mx-2 text-center">
+                                <Grid
+                                    onHandleBlackCellsArray={handleBlackCellsArray}
+                                    key={i}
+                                    rows={5}
+                                    columns={5}
+                                    sizeData={sizeData}
+                                    colorData={shape.content}
+                                />
+                            </div>
+                        </>
+                    );
+                })}
+            </div>
+            <div className="flex justify-between items-start bg-[#fde100] p-2 rounded my-4">
+                <h1 className="font-semibold">TASK 3</h1>
+                <h1 className="font-semibold">Time : </h1>
+            </div>
+            <div className="border-2 border-yellow-200 pb-4">
+                <div className="flex justify-center items-center md:ml-4 lg:ml-8 my-4">
+                    <button className="hover:bg-yellow-200 rounded bg-white p-2 my-2 border-2 border-black flex" onClick={task3apiCall}>
+                        Generate the Shape`s Rotations
+                    </button>
+                </div>
+                <div className="">
+                    <LetterPickerUnique onUniqueLetterChange={handleUniqueLetterChange3} />
+                </div>
+                {rotations.map((rotation, i) => {
+                    return (
+                        <>
+                            <div className="inline-block mx-2">
+                                <Grid
+                                    onHandleBlackCellsArray={handleBlackCellsArray}
+                                    isClickable={false}
+                                    key={i}
+                                    rows={5}
+                                    columns={5}
+                                    sizeData={sizeData}
+                                    colorData={rotation.content}
+                                />
+                            </div>
+                        </>
+                    );
+                })}
+            </div>
+
+            <div className="flex justify-between items-start bg-[#4eb748] p-2 rounded my-4">
+                <h1 className="font-semibold">TASK 4</h1>
+                <h1 className="font-semibold">Time : </h1>
+            </div>
+            <div className="border-2 border-green-200 pb-4">
+                <div className="flex flex-col my-4 ">
+                    <div className="flex justify-center items-center">
+                        <Grid
+                            onHandleBlackCellsArray={handleBlackCellsArray}
+                            isClickable={true}
+                            rows={rowData4}
+                            columns={columnData4}
+                            sizeData={sizeData}
+                            colorData={""}
+                        />
+                    </div>
+                    <div className="flex justify-center items-center mr-10 mt-4">
+                        <div>
+                            <RotationButton onRotationChange={handleRotationChange} />
                         </div>
-                    </>
-                );
-            })}
-            <h1 className="font-semibold bg-[#fde100] p-2 rounded my-4">TASK 3</h1>
-            <div className="md:ml-4 lg:ml-8 my-4">
-                <button className="rounded bg-white p-2 my-2 border-2 border-black flex" onClick={task3apiCall}>
-                    Generate the Shape`s Rotations
-                </button>
-            </div>
-            <div className="">
-                <LetterPickerUnique onUniqueLetterChange={handleUniqueLetterChange3} />
-            </div>
-            {rotations.map((rotation, i) => {
-                return (
-                    <>
-                        <div className="inline-block mx-2">
-                            <Grid
-                                onHandleBlackCellsArray={handleBlackCellsArray}
-                                isClickable={false}
-                                key={i}
-                                rows={5}
-                                columns={5}
-                                sizeData={sizeData}
-                                colorData={rotation.content}
-                            />
+                        <div>
+                            <FlipButton onFlipChange={handleFlipChange} />
                         </div>
-                    </>
-                );
-            })}
-            <h1 className="font-semibold bg-[#4eb748] p-2 rounded my-4">TASK 4</h1>
-            <div className="flex flex-col my-4">
-                <div className="flex justify-center items-center">
-                    <Grid
-                        onHandleBlackCellsArray={handleBlackCellsArray}
-                        isClickable={true}
-                        rows={rowData4}
-                        columns={columnData4}
-                        sizeData={sizeData}
-                        colorData={""}
-                    />
-                </div>
-                <div className="flex justify-center items-center mr-10 mt-4">
-                    <div>
-                        <RotationButton onRotationChange={handleRotationChange} />
+                        <div className="ml-[14px]">
+                            <ColRowPicker onColRowChange={handleColRowChange4} />
+                        </div>
                     </div>
                     <div>
-                        <FlipButton onFlipChange={handleFlipChange} />
+                        <LetterPickerUnique onUniqueLetterChange={handleUniqueLetterChange4} />
                     </div>
-                    <div className="ml-[14px]">
-                        <ColRowPicker onColRowChange={handleColRowChange4} />
+                    <div className="flex justify-center items-center md:ml-4 lg:ml-8 my-4">
+                        <button
+                            className="hover:bg-green-200 rounded bg-white p-2 my-2 border-2 border-black flex"
+                            onClick={() => {
+                                task4apiCall();
+                                setShowAllButton(true);
+                            }}
+                        >
+                            Generate Any Allowed Position
+                        </button>
                     </div>
                 </div>
-                <div>
-                    <LetterPickerUnique onUniqueLetterChange={handleUniqueLetterChange4} />
+                <div className="flex items-center flex-wrap">
+                    {renderAllObjects}
+                    {!showAll && showAllButton && (
+                        <button className="bg-purple-200 p-2 rounded-md t" onClick={() => setShowAll(true)}>
+                            Show all
+                        </button>
+                    )}
+                    {showAll && !showLessButton && (
+                        <button className="bg-purple-200 p-2 rounded-md t" onClick={() => setShowAll(false)}>
+                            Show Less
+                        </button>
+                    )}
                 </div>
-                <div className="md:ml-4 lg:ml-8 my-4">
-                    <button
-                        className="rounded bg-white p-2 my-2 border-2 border-black flex"
-                        onClick={() => {
-                            task4apiCall();
-                            setShowAllButton(true);
-                        }}
-                    >
-                        Generate Any Allowed Position
-                    </button>
-                </div>
-            </div>
-            <div className="flex items-center flex-wrap">
-                {renderAllObjects}
-                {!showAll && showAllButton && (
-                    <button className="bg-purple-200 p-2 rounded-md t" onClick={() => setShowAll(true)}>
-                        Show all
-                    </button>
-                )}
-                {showAll && !showLessButton && (
-                    <button className="bg-purple-200 p-2 rounded-md t" onClick={() => setShowAll(false)}>
-                        Show Less
-                    </button>
-                )}
             </div>
         </div>
     );

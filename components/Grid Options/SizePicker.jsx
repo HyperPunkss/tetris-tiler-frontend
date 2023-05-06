@@ -16,7 +16,7 @@ function SizePicker({ onSizeChange }) {
                 name="sizePicker"
                 value={sizeValue}
                 onChange={(e) => setSizeValue(e.target.value)}
-                className="h-[43px] border-[2px] border-purple-700 p-2 rounded-lg shadow-md"
+                className="hover:cursor-pointer h-[43px] border-[2px] border-purple-700 p-2 rounded-lg shadow-md"
             >
                 <option value="small" className="text-black">
                     Small
