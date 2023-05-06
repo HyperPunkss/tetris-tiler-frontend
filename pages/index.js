@@ -1,7 +1,10 @@
 import Grid from "@/components/Grid";
+import LetterPicker from "@/components/LetterPicker";
+import SizePicker from "@/components/SizePicker";
 import axios from "axios";
 import Image from "next/image";
-import fImage from '../styles/icons/letterF.png'
+
+
 export default function Home() {
     var data = JSON.stringify({
         x: 5,
@@ -53,14 +56,8 @@ export default function Home() {
     <div className="my-4 p-2">
             <div className="flex justify-center items-center flex-col">
                 <Grid rows={3} columns={21} />
-                <div className="my-4">
-                    <select>
-                        <option value="small">Small</option>
-                        <option value="medium">Medium</option>
-                        <option value="large">Large</option>
-                    </select>
-                    <Image src={fImage} alt='broken-img' width={70} height={20}/>
-                </div>
+                <SizePicker/>
+                <LetterPicker/>
             </div>
         </div>
     );
