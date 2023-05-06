@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import ColRowPicker from "@/components/Grid Options/ColRowPicker";
 import LetterPickerUnique from "@/components/Grid Options/LetterPickerUnique";
 import { loadGetInitialProps } from "next/dist/shared/lib/utils";
+import RotationButton from "@/components/Grid Options/RotationButton";
 
 export default function Home() {
     const [sizeData, setSizeData] = useState("");
@@ -17,6 +18,7 @@ export default function Home() {
     const [uniqueLetterData3, setUniqueLetterData3] = useState("");
     const [uniqueLetterData4, setUniqueLetterData4] = useState("");
     const [blackCellsArray, setBlackCellsArray] = useState([]);
+    const [rotationValue4,setRotationValue4] = useState(false)
 
     //TASK 2 - Getting all the shape information from the API
     const [shapes, setShapes] = useState([]);
@@ -89,10 +91,14 @@ export default function Home() {
     }
 
     function handleBlackCellsArray(blackCellsArray) {
-        setBlackCellsArray(blackCellsArray)
+        setBlackCellsArray(blackCellsArray);
     }
 
-    console.log("INDEX LOG",blackCellsArray);
+    function handleRotationChange(newRotation){
+        setRotationValue4(newRotation)
+    }
+
+    console.log(rotationValue4)
     return (
         <div className="my-4 p-2 md:px-6 lg:px-14">
             <h1 className="font-semibold bg-red-500 p-2 rounded">TASK 1</h1>
@@ -172,8 +178,13 @@ export default function Home() {
                         colorData={""}
                     />
                 </div>
-                <div className="flex justify-center items-center p-4 mr-8">
-                    <ColRowPicker onColRowChange={handleColRowChange4} />
+                <div className="flex justify-center items-center mr-10 mt-4">
+                    <div>
+                        <RotationButton onRotationChange={handleRotationChange}/>
+                    </div>
+                    <div className="ml-[14px]">
+                        <ColRowPicker onColRowChange={handleColRowChange4} />
+                    </div>
                 </div>
                 <div>
                     <LetterPickerUnique onUniqueLetterChange={handleUniqueLetterChange4} />
