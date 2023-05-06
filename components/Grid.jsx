@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Grid = ({ rows, columns, sizeData }) => {
+const Grid = ({ rows, columns, sizeData, colorData }) => {
     const [cellSize, setCellSize] = useState("medium");
     const [cellColor, setCellColor] = useState("")
 
@@ -25,11 +25,10 @@ const Grid = ({ rows, columns, sizeData }) => {
       {letter: "B", color: "#000000"},
       {letter: "E", color: "#ffffff"}
   ];
-  var input = [];
-  for(let i; i<input.length; i++){
+  for(let i; i<colorData.length; i++){
     const result = letterArray
     .filter((item) => {
-        return item.letter === input[i];
+        return item.letter === colorData[i];
     })
     .map((item) => {
         return item.color;
