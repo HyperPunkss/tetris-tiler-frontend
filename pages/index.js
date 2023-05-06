@@ -8,6 +8,7 @@ import ColRowPicker from "@/components/Grid Options/ColRowPicker";
 import LetterPickerUnique from "@/components/Grid Options/LetterPickerUnique";
 import { loadGetInitialProps } from "next/dist/shared/lib/utils";
 import RotationButton from "@/components/Grid Options/RotationButton";
+import FlipButton from "@/components/Grid Options/FlipButton";
 
 export default function Home() {
     const [sizeData, setSizeData] = useState("");
@@ -18,8 +19,8 @@ export default function Home() {
     const [uniqueLetterData3, setUniqueLetterData3] = useState("");
     const [uniqueLetterData4, setUniqueLetterData4] = useState("");
     const [blackCellsArray, setBlackCellsArray] = useState([]);
-    const [rotationValue4,setRotationValue4] = useState(false)
-
+    const [rotationValue4, setRotationValue4] = useState(false);
+    const [flipValue4,setFlipValue4] = useState(false)
     //TASK 2 - Getting all the shape information from the API
     const [shapes, setShapes] = useState([]);
 
@@ -40,44 +41,41 @@ export default function Home() {
     }
 
     //TASK 4
-    function task4apiCall(){
-        const finalBlackCellsArray = []; 
-    for (let i = 0; i < blackCellsArray.length; i++) {
-        finalBlackCellsArray.push([blackCellsArray[i].col, rowData4 - blackCellsArray[i].row - 1]);
-    }     
-    let task4data = JSON.stringify({
-        "gridSizeX": rowData4,
-        "gridSizeY": columnData4,
-        "letter": uniqueLetterData4,
-        "blackHoles": finalBlackCellsArray,
-        "allowRotations": true,
-        "allowFlip": true
-      });
-      console.log(task4data);
-      let config = {
-        method: 'post',
-        maxBodyLength: Infinity,
-        url: 'http://matsaki95.ddns.net:8900/api/v1/a4-task',
-        headers: { 
-          'Key': 'Content-Type', 
-          'Value': 'application/json', 
-          'Content-Type': 'application/json'
-        },
-        data : task4data
-      };
-      
-      axios.request(config)
-      .then((response) => {
-        console.log(JSON.stringify(response.data));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    function task4apiCall() {
+        const finalBlackCellsArray = [];
+        for (let i = 0; i < blackCellsArray.length; i++) {
+            finalBlackCellsArray.push([blackCellsArray[i].col, rowData4 - blackCellsArray[i].row - 1]);
+        }
+        let task4data = JSON.stringify({
+            gridSizeX: rowData4,
+            gridSizeY: columnData4,
+            letter: uniqueLetterData4,
+            blackHoles: finalBlackCellsArray,
+            allowRotations: true,
+            allowFlip: true,
+        });
+        console.log(task4data);
+        let config = {
+            method: "post",
+            maxBodyLength: Infinity,
+            url: "http://matsaki95.ddns.net:8900/api/v1/a4-task",
+            headers: {
+                Key: "Content-Type",
+                Value: "application/json",
+                "Content-Type": "application/json",
+            },
+            data: task4data,
+        };
+
+        axios
+            .request(config)
+            .then((response) => {
+                console.log(JSON.stringify(response.data));
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
-
-    
-
-
 
     //TASK 10 - Generating Data and Sending them to the API with Axios
     function task10apiCall() {
@@ -134,11 +132,16 @@ export default function Home() {
         setBlackCellsArray(blackCellsArray);
     }
 
-    function handleRotationChange(newRotation){
-        setRotationValue4(newRotation)
+    function handleRotationChange(newRotation) {
+        setRotationValue4(newRotation);
     }
 
-    console.log(rotationValue4)
+    function handleFlipChange(newFlip){
+        setFlipValue4(newFlip)
+    }
+
+    console.log("INDEX LOG",flipValue4);
+    console.log("INDEX LOG",rotationValue4);
     return (
         <div className="my-4 p-2 md:px-6 lg:px-14">
             <h1 className="font-semibold bg-red-500 p-2 rounded">TASK 1</h1>
@@ -220,7 +223,10 @@ export default function Home() {
                 </div>
                 <div className="flex justify-center items-center mr-10 mt-4">
                     <div>
-                        <RotationButton onRotationChange={handleRotationChange}/>
+                        <RotationButton onRotationChange={handleRotationChange} />
+                    </div>
+                    <div>
+                        <FlipButton onFlipChange={handleFlipChange}/>
                     </div>
                     <div className="ml-[14px]">
                         <ColRowPicker onColRowChange={handleColRowChange4} />
@@ -229,9 +235,11 @@ export default function Home() {
                 <div>
                     <LetterPickerUnique onUniqueLetterChange={handleUniqueLetterChange4} />
                 </div>
-                <button className="rounded bg-white p-2 my-2 border-2 border-black flex" onClick={task4apiCall}>
-                    Generate the thingies
-                </button>
+                <div className="md:ml-4 lg:ml-8 my-4">
+                    <button className="rounded bg-white p-2 my-2 border-2 border-black flex" onClick={task4apiCall}>
+                        Generate Any Allowed Position
+                    </button>
+                </div>
             </div>
         </div>
     );
