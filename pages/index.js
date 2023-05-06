@@ -16,31 +16,31 @@ export default function Home() {
     const [sizeData, setSizeData] = useState("");
     const [columnData1, setColumnData1] = useState(5);
     const [columnData4, setColumnData4] = useState(8);
-    const [columnData5, setColumnData5] = useState(5)
+    const [columnData5, setColumnData5] = useState(5);
     const [rowData1, setRowData1] = useState(5);
     const [rowData4, setRowData4] = useState(8);
-    const [rowData5, setRowData5] = useState(5)
+    const [rowData5, setRowData5] = useState(5);
     const [uniqueLetterData3, setUniqueLetterData3] = useState("");
     const [uniqueLetterData4, setUniqueLetterData4] = useState("");
     const [blackCellsArray, setBlackCellsArray] = useState([]);
-    const [blackCellsArray5, setBlackCellsArray5] = useState([])
+    const [blackCellsArray5, setBlackCellsArray5] = useState([]);
     const [rotationValue4, setRotationValue4] = useState(false);
-    const [flipValue4,setFlipValue4] = useState(false)
+    const [flipValue4, setFlipValue4] = useState(false);
     const [showAll, setShowAll] = useState(false);
-    const [task5content, setTask5Content] = useState("")
-    const [task5filled, setTask5filled] = useState()
-    const [task5unfilled, setTask5unfilled] = useState()
-    const [task2time, setTask2time] = useState()
-    const [task3time, setTask3time] = useState()
-    const [task4time, setTask4time] = useState()
-    const [task5time, setTask5time] = useState()
-    
+    const [task5content, setTask5Content] = useState("");
+    const [task5filled, setTask5filled] = useState();
+    const [task5unfilled, setTask5unfilled] = useState();
+    const [task2time, setTask2time] = useState();
+    const [task3time, setTask3time] = useState();
+    const [task4time, setTask4time] = useState();
+    const [task5time, setTask5time] = useState();
+
     //TASK 2 - Getting all the shape information from the API
     const [shapes, setShapes] = useState([]);
 
     async function task2apiCall() {
         await axios.get("http://matsaki95.ddns.net:8900/api/v1/a2-task").then((response) => {
-            setTask2time(response.data.pop())
+            setTask2time(response.data.pop());
             setShapes(response.data);
         });
     }
@@ -49,10 +49,12 @@ export default function Home() {
     const [rotations, setRotations] = useState([]);
 
     async function task3apiCall() {
-        await axios.get("http://matsaki95.ddns.net:8900/api/v1/a3-task/?letter=" + uniqueLetterData3).then((response) => {
-            setTask3time(response.data.pop())
-            setRotations(response.data);
-        });
+        await axios
+            .get("http://matsaki95.ddns.net:8900/api/v1/a3-task/?letter=" + uniqueLetterData3)
+            .then((response) => {
+                setTask3time(response.data.pop());
+                setRotations(response.data);
+            });
     }
 
     //TASK 4
@@ -87,7 +89,7 @@ export default function Home() {
         axios
             .request(config)
             .then((response) => {
-                setTask4time(response.data.pop())
+                setTask4time(response.data.pop());
                 setAllowedPositions(response.data);
             })
             .catch((error) => {
@@ -96,16 +98,16 @@ export default function Home() {
     }
 
     //TASK 5
-    function task5apiCall(){
-        const finalBlackCellsArray = []
+    function task5apiCall() {
+        const finalBlackCellsArray = [];
         for (let i = 0; i < blackCellsArray5.length; i++) {
             finalBlackCellsArray.push([blackCellsArray5[i].col, rowData5 - blackCellsArray5[i].row - 1]);
         }
         let task5data = JSON.stringify({
             gridSizeX: rowData5,
             gridSizeY: columnData5,
-            blackHoles: finalBlackCellsArray
-        })
+            blackHoles: finalBlackCellsArray,
+        });
         console.log(finalBlackCellsArray);
         // console.log(task5data);
         let config = {
@@ -124,17 +126,16 @@ export default function Home() {
             .request(config)
             .then((response) => {
                 console.log(response.data);
-                setTask5time(response.data['timeTaken'])
+                setTask5time(response.data["timeTaken"]);
                 console.log(response.data);
-                setTask5Content(response.data['grid'])
-                setTask5filled(response.data['filled'])
-                setTask5unfilled(response.data['unfilled'])
+                setTask5Content(response.data["grid"]);
+                setTask5filled(response.data["filled"]);
+                setTask5unfilled(response.data["unfilled"]);
             })
             .catch((error) => {
                 console.log(error);
             });
-    }    
-
+    }
 
     //TASK 10 - Generating Data and Sending them to the API with Axios
     function task10apiCall() {
@@ -179,9 +180,9 @@ export default function Home() {
         setRowData4(newSize[1]);
     }
 
-    function handleColRowChange5(newSize){
-        setColumnData5(newSize[0])
-        setRowData5(newSize[1])
+    function handleColRowChange5(newSize) {
+        setColumnData5(newSize[0]);
+        setRowData5(newSize[1]);
     }
 
     function handleUniqueLetterChange3(newUniqueLetter) {
@@ -195,9 +196,9 @@ export default function Home() {
     function handleBlackCellsArray(blackCellsArray) {
         setBlackCellsArray(blackCellsArray);
     }
-    
+
     function handleBlackCellsArray5(blackCellsArray) {
-        setBlackCellsArray5(blackCellsArray)
+        setBlackCellsArray5(blackCellsArray);
     }
 
     function handleRotationChange(newRotation) {
@@ -223,7 +224,7 @@ export default function Home() {
             </div>
         );
     });
-    
+
     // console.log("SHOW ALL BUTTON", showAllButton);
     // console.log("SHOWALL", showAll);
     return (
@@ -257,7 +258,10 @@ export default function Home() {
             </div>
             <div className="border-2 border-orange-200">
                 <div className="flex justify-center items-center md:ml-4 lg:ml-8 my-4">
-                    <button className="hover:bg-orange-200 rounded bg-white p-2 my-2 border-2 border-black flex" onClick={task2apiCall}>
+                    <button
+                        className="hover:bg-orange-200 rounded bg-white p-2 my-2 border-2 border-black flex"
+                        onClick={task2apiCall}
+                    >
                         Generate all the shapes!
                     </button>
                 </div>
@@ -284,7 +288,10 @@ export default function Home() {
             </div>
             <div className="border-2 border-yellow-200 pb-4">
                 <div className="flex justify-center items-center md:ml-4 lg:ml-8 my-4">
-                    <button className="hover:bg-yellow-200 rounded bg-white p-2 my-2 border-2 border-black flex" onClick={task3apiCall}>
+                    <button
+                        className="hover:bg-yellow-200 rounded bg-white p-2 my-2 border-2 border-black flex"
+                        onClick={task3apiCall}
+                    >
                         Generate the Shape`s Rotations
                     </button>
                 </div>
@@ -385,7 +392,7 @@ export default function Home() {
             })}
             <h1 className="font-semibold bg-blue-400 p-2 rounded my-4">TASK 5</h1>
             <div className="flex flex-col my-4">
-            <div className="flex justify-center items-center">
+                <div className="flex justify-center items-center">
                     <Grid
                         onHandleBlackCellsArray={handleBlackCellsArray5}
                         isClickable={true}
@@ -408,11 +415,15 @@ export default function Home() {
                 </div>
             </div>
             <div className="md:ml-4 lg:ml-8 my-4">
-                    <button className="rounded bg-white p-2 my-2 border-2 border-black flex" onClick={task5apiCall}>
-                        Generate a Random Shape
-                    </button>
+                <button className="rounded bg-white p-2 my-2 border-2 border-black flex" onClick={task5apiCall}>
+                    Generate a Random Shape
+                </button>
+            </div>
+            <h1 className="font-semibold bg-blue-700 p-2 rounded my-4">TASK 6</h1>
+                <div>
+                    <p>We are gonna showcase the preious task`s shape in Plain Text</p>
+                    <p>{task5content}</p>
                 </div>
-                
         </div>
     );
 }
