@@ -10,8 +10,8 @@ export default function Home() {
   const [shapes, setShapes] = useState([])
   
   const testObj = [
-    {F: "EEEEE EEEEE EEFFE EFFEE EEFEE"},
-    {I: "EEIEE EEIEE EEIEE EEIEE EEIEE"}
+    {letter: "F", content: "EEEEE EEEEE EEFFE EFFEE EEFEE"},
+    {letter: "I", content: "EEIEE EEIEE EEIEE EEIEE EEIEE"}
   ]
   const testObjJSON = JSON.stringify(testObj)
 
@@ -22,10 +22,10 @@ export default function Home() {
     
     setShapes(JSON.parse(testObjJSON))
     console.log(shapes);
-    const shape = testObj.map((item) =>{
-      return item;
-    })
-    console.log(Object.keys(shape[0]));
+    for(let i=0; i<shapes.length; i++){
+      console.log(shapes[i].content);
+    }
+    
   }
 
   //TASK 10 - Generating Data and Sending them to the API with Axios 
