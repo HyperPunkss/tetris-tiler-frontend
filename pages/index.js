@@ -123,7 +123,9 @@ export default function Home() {
         axios
             .request(config)
             .then((response) => {
-                setTask5time(response.data.pop())
+                console.log(response.data);
+                setTask5time(response.data['timeTaken'])
+                console.log(response.data);
                 setTask5Content(response.data['grid'])
                 setTask5filled(response.data['filled'])
                 setTask5unfilled(response.data['unfilled'])
@@ -133,43 +135,6 @@ export default function Home() {
             });
     }    
 
-    //TASK 5
-    function task5apiCall(){
-        const finalBlackCellsArray = []
-        for (let i = 0; i < blackCellsArray5.length; i++) {
-            finalBlackCellsArray.push([blackCellsArray5[i].col, rowData5 - blackCellsArray5[i].row - 1]);
-        }
-        let task5data = JSON.stringify({
-            gridSizeX: rowData5,
-            gridSizeY: columnData5,
-            blackHoles: finalBlackCellsArray
-        })
-        console.log(finalBlackCellsArray);
-        // console.log(task5data);
-        let config = {
-            method: "post",
-            maxBodyLength: Infinity,
-            url: "http://matsaki95.ddns.net:8900/api/v1/a5-task",
-            headers: {
-                Key: "Content-Type",
-                Value: "application/json",
-                "Content-Type": "application/json",
-            },
-            data: task5data,
-        };
-
-        axios
-            .request(config)
-            .then((response) => {
-                console.log(JSON.stringify(response.data));
-                setTask5Content(response.data['grid'])
-                setTask5filled(response.data['filled'])
-                setTask5unfilled(response.data['unfilled'])
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }    
 
     //TASK 10 - Generating Data and Sending them to the API with Axios
     function task10apiCall() {
@@ -259,8 +224,8 @@ export default function Home() {
         );
     });
     
-    console.log("SHOW ALL BUTTON", showAllButton);
-    console.log("SHOWALL", showAll);
+    // console.log("SHOW ALL BUTTON", showAllButton);
+    // console.log("SHOWALL", showAll);
     return (
         <div className="my-4 p-2 md:px-6 lg:px-14">
             <h1 className="font-semibold bg-red-500 p-2 rounded">TASK 1</h1>
