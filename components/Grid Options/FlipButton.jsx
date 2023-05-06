@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 
-function FlipButton({onFlipChange}) {
+function FlipButton({ onFlipChange }) {
     const [isFlipTrue, setIsFlipTrue] = useState(false);
 
     useEffect(() => {
-        onFlipChange(isFlipTrue)
-    }, [isFlipTrue,onFlipChange])
+        onFlipChange(isFlipTrue);
+    }, [isFlipTrue, onFlipChange]);
 
-    function handleRotationChange(e){
-        setIsFlipTrue(Boolean(e.target.value))
+    function handleRotationChange(e) {
+        setIsFlipTrue(Boolean(e.target.value));
     }
-    
+
     return (
         <div className="my-4">
             <div className="flex">
@@ -24,8 +24,12 @@ function FlipButton({onFlipChange}) {
                 value={isFlipTrue}
                 onChange={handleRotationChange}
             >
-                <option value="false">No</option>
-                <option value="true">Yes</option>
+                <option value="false" className="text-black">
+                    No
+                </option>
+                <option value="true" className="text-black">
+                    Yes
+                </option>
             </select>
         </div>
     );

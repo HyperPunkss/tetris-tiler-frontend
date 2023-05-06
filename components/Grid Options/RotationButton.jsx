@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
 
-function RotationButton({onRotationChange}) {
-    const [isRotationTrue,setIsRotationTrue] = useState(false)
+function RotationButton({ onRotationChange }) {
+    const [isRotationTrue, setIsRotationTrue] = useState(false);
 
     useEffect(() => {
-        onRotationChange(isRotationTrue)
-    },[isRotationTrue,onRotationChange])
+        onRotationChange(isRotationTrue);
+    }, [isRotationTrue, onRotationChange]);
 
-
-    function handleRotationChange(e){
-        setIsRotationTrue(Boolean(e.target.value))
+    function handleRotationChange(e) {
+        setIsRotationTrue(Boolean(e.target.value));
     }
-
 
     return (
         <div className="my-4">
@@ -26,8 +24,12 @@ function RotationButton({onRotationChange}) {
                 value={isRotationTrue}
                 onChange={handleRotationChange}
             >
-                <option value="false">No</option>
-                <option value="true">Yes</option>
+                <option value="false" className="text-black">
+                    No
+                </option>
+                <option value="true" className="text-black">
+                    Yes
+                </option>
             </select>
         </div>
     );
