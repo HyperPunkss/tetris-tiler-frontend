@@ -28,12 +28,15 @@ export default function Home() {
     const [flipValue4, setFlipValue4] = useState(false);
     const [showAll, setShowAll] = useState(false);
     const [task5content, setTask5Content] = useState("");
-    const [task5filled, setTask5filled] = useState();
-    const [task5unfilled, setTask5unfilled] = useState();
-    const [task2time, setTask2time] = useState();
-    const [task3time, setTask3time] = useState();
-    const [task4time, setTask4time] = useState();
-    const [task5time, setTask5time] = useState();
+    const [task8content, setTask8content] = useState("")
+    const [task5filled, setTask5filled] = useState(0);
+    const [task5unfilled, setTask5unfilled] = useState(0);
+    const [perimeterTask8, setPerimeterTask8] = useState(0)
+    const [task2time, setTask2time] = useState(0);
+    const [task3time, setTask3time] = useState(0);
+    const [task4time, setTask4time] = useState(0);
+    const [task5time, setTask5time] = useState(0);
+    const [task8time, setTask8time] = useState(0);
 
     //TASK 2 - Getting all the shape information from the API
     const [shapes, setShapes] = useState([]);
@@ -125,9 +128,8 @@ export default function Home() {
         axios
             .request(config)
             .then((response) => {
-                console.log(response.data);
+                console.log(response);
                 setTask5time(response.data["timeTaken"]);
-                console.log(response.data);
                 setTask5Content(response.data["grid"]);
                 setTask5filled(response.data["filled"]);
                 setTask5unfilled(response.data["unfilled"]);
@@ -135,6 +137,23 @@ export default function Home() {
             .catch((error) => {
                 console.log(error);
             });
+    }
+
+    //TASK 8
+    // const [shapes, setShapes] = useState([]);
+
+     function task8apiCall() {
+         axios.get("http://matsaki95.ddns.net:8900/api/v1/a8-task").then((response) => {
+            const jsonArray = response.data;
+            const firstObject = jsonArray[0];
+            console.log(firstObject);
+
+            setTask8content(firstObject.grid);
+            setPerimeterTask8(firstObject.perimeter);
+            setTask8time(firstObject.timer);
+        }).catch((error)=>{
+            console.log(error);
+        });
     }
 
     //TASK 10 - Generating Data and Sending them to the API with Axios
@@ -420,18 +439,41 @@ export default function Home() {
                 </button>
             </div>
             <h1 className="font-semibold bg-blue-700 p-2 rounded my-4">TASK 6</h1>
-                <div>
-                    <p>We are gonna showcase the preious task`s shape in Plain Text</p>
-                    <p>{task5content}</p>
-                </div>
-                <h1 className="font-semibold bg-[#f89622] p-2 rounded my-4">TASK 9</h1>
-                <div>
-                    <p>The Function has already been showing some of the times on the previous Headers, but we will show all the times here again.</p>
-                    <p>Task 2 time: {task2time}ms</p>
-                    <p>Task 3 time: {task3time}ms</p>
-                    <p>Task 4 time: {task4time}ms</p>
-                    <p>Task 5 time: {task5time}ms</p>
-                </div>
+            <div>
+                <p>We are gonna showcase the preious task`s shape in Plain Text</p>
+                <p>{task5content}</p>
+            </div>
+            <h1 className="font-semibold bg-red-500 p-2 rounded my-4">TASK 8</h1>
+            <div className="flex justify-center items-center">
+                <Grid
+                    onHandleBlackCellsArray={handleBlackCellsArray}
+                    isClickable={false}
+                    rows={5}
+                    columns={5}
+                    sizeData={sizeData}
+                    colorData={task8content}
+                />
+            </div>
+            <div>
+                <p>Perimeter = {perimeterTask8}</p>
+            </div>
+            <div className="md:ml-4 lg:ml-8 my-4">
+                <button className="rounded bg-white p-2 my-2 border-2 border-black flex" onClick={task8apiCall}>
+                    Generate a shape and Calculate the Perimeter
+                </button>
+            </div>
+            <h1 className="font-semibold bg-[#f89622] p-2 rounded my-4">TASK 9</h1>
+            <div>
+                <p>
+                    The Function has already been showing some of the times on the previous Headers, but we will show
+                    all the times here again.
+                </p>
+                <p>Task 2 time: {task2time}ms</p>
+                <p>Task 3 time: {task3time}ms</p>
+                <p>Task 4 time: {task4time}ms</p>
+                <p>Task 5 time: {task5time}ms</p>
+                <p>Task 8 time: {task8time}ms</p>
+            </div>
         </div>
     );
 }
