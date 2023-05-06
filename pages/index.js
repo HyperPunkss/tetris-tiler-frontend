@@ -10,37 +10,37 @@ import { loadGetInitialProps } from "next/dist/shared/lib/utils";
 import RotationButton from "@/components/Grid Options/RotationButton";
 import FlipButton from "@/components/Grid Options/FlipButton";
 
-export default function Home() {
+export default function Home({ links }) {
     const [showAllButton, setShowAllButton] = useState(false);
     const [showLessButton, setShowLessButton] = useState(false);
     const [sizeData, setSizeData] = useState("");
     const [columnData1, setColumnData1] = useState(5);
     const [columnData4, setColumnData4] = useState(8);
-    const [columnData5, setColumnData5] = useState(5)
+    const [columnData5, setColumnData5] = useState(5);
     const [rowData1, setRowData1] = useState(5);
     const [rowData4, setRowData4] = useState(8);
-    const [rowData5, setRowData5] = useState(5)
+    const [rowData5, setRowData5] = useState(5);
     const [uniqueLetterData3, setUniqueLetterData3] = useState("");
     const [uniqueLetterData4, setUniqueLetterData4] = useState("");
     const [blackCellsArray, setBlackCellsArray] = useState([]);
-    const [blackCellsArray5, setBlackCellsArray5] = useState([])
+    const [blackCellsArray5, setBlackCellsArray5] = useState([]);
     const [rotationValue4, setRotationValue4] = useState(false);
-    const [flipValue4,setFlipValue4] = useState(false)
+    const [flipValue4, setFlipValue4] = useState(false);
     const [showAll, setShowAll] = useState(false);
-    const [task5content, setTask5Content] = useState("")
-    const [task5filled, setTask5filled] = useState()
-    const [task5unfilled, setTask5unfilled] = useState()
-    const [task2time, setTask2time] = useState()
-    const [task3time, setTask3time] = useState()
-    const [task4time, setTask4time] = useState()
-    const [task5time, setTask5time] = useState()
-    
+    const [task5content, setTask5Content] = useState("");
+    const [task5filled, setTask5filled] = useState();
+    const [task5unfilled, setTask5unfilled] = useState();
+    const [task2time, setTask2time] = useState();
+    const [task3time, setTask3time] = useState();
+    const [task4time, setTask4time] = useState();
+    const [task5time, setTask5time] = useState();
+
     //TASK 2 - Getting all the shape information from the API
     const [shapes, setShapes] = useState([]);
 
     async function task2apiCall() {
         await axios.get("http://matsaki95.ddns.net:8900/api/v1/a2-task").then((response) => {
-            setTask2time(response.data.pop())
+            setTask2time(response.data.pop());
             setShapes(response.data);
         });
     }
@@ -50,7 +50,7 @@ export default function Home() {
 
     async function task3apiCall() {
         await axios.get("http://matsaki95.ddns.net:8900/api/v1/a3-task/?letter=" + uniqueLetterData3).then((response) => {
-            setTask3time(response.data.pop())
+            setTask3time(response.data.pop());
             setRotations(response.data);
         });
     }
@@ -87,7 +87,7 @@ export default function Home() {
         axios
             .request(config)
             .then((response) => {
-                setTask4time(response.data.pop())
+                setTask4time(response.data.pop());
                 setAllowedPositions(response.data);
             })
             .catch((error) => {
@@ -96,16 +96,16 @@ export default function Home() {
     }
 
     //TASK 5
-    function task5apiCall(){
-        const finalBlackCellsArray = []
+    function task5apiCall() {
+        const finalBlackCellsArray = [];
         for (let i = 0; i < blackCellsArray5.length; i++) {
             finalBlackCellsArray.push([blackCellsArray5[i].col, rowData5 - blackCellsArray5[i].row - 1]);
         }
         let task5data = JSON.stringify({
             gridSizeX: rowData5,
             gridSizeY: columnData5,
-            blackHoles: finalBlackCellsArray
-        })
+            blackHoles: finalBlackCellsArray,
+        });
         console.log(finalBlackCellsArray);
         // console.log(task5data);
         let config = {
@@ -123,27 +123,27 @@ export default function Home() {
         axios
             .request(config)
             .then((response) => {
-                setTask5time(response.data.pop())
-                setTask5Content(response.data['grid'])
-                setTask5filled(response.data['filled'])
-                setTask5unfilled(response.data['unfilled'])
+                setTask5time(response.data.pop());
+                setTask5Content(response.data["grid"]);
+                setTask5filled(response.data["filled"]);
+                setTask5unfilled(response.data["unfilled"]);
             })
             .catch((error) => {
                 console.log(error);
             });
-    }    
+    }
 
     //TASK 5
-    function task5apiCall(){
-        const finalBlackCellsArray = []
+    function task5apiCall() {
+        const finalBlackCellsArray = [];
         for (let i = 0; i < blackCellsArray5.length; i++) {
             finalBlackCellsArray.push([blackCellsArray5[i].col, rowData5 - blackCellsArray5[i].row - 1]);
         }
         let task5data = JSON.stringify({
             gridSizeX: rowData5,
             gridSizeY: columnData5,
-            blackHoles: finalBlackCellsArray
-        })
+            blackHoles: finalBlackCellsArray,
+        });
         console.log(finalBlackCellsArray);
         // console.log(task5data);
         let config = {
@@ -162,14 +162,14 @@ export default function Home() {
             .request(config)
             .then((response) => {
                 console.log(JSON.stringify(response.data));
-                setTask5Content(response.data['grid'])
-                setTask5filled(response.data['filled'])
-                setTask5unfilled(response.data['unfilled'])
+                setTask5Content(response.data["grid"]);
+                setTask5filled(response.data["filled"]);
+                setTask5unfilled(response.data["unfilled"]);
             })
             .catch((error) => {
                 console.log(error);
             });
-    }    
+    }
 
     //TASK 10 - Generating Data and Sending them to the API with Axios
     function task10apiCall() {
@@ -214,9 +214,9 @@ export default function Home() {
         setRowData4(newSize[1]);
     }
 
-    function handleColRowChange5(newSize){
-        setColumnData5(newSize[0])
-        setRowData5(newSize[1])
+    function handleColRowChange5(newSize) {
+        setColumnData5(newSize[0]);
+        setRowData5(newSize[1]);
     }
 
     function handleUniqueLetterChange3(newUniqueLetter) {
@@ -230,9 +230,9 @@ export default function Home() {
     function handleBlackCellsArray(blackCellsArray) {
         setBlackCellsArray(blackCellsArray);
     }
-    
+
     function handleBlackCellsArray5(blackCellsArray) {
-        setBlackCellsArray5(blackCellsArray)
+        setBlackCellsArray5(blackCellsArray);
     }
 
     function handleRotationChange(newRotation) {
@@ -262,7 +262,7 @@ export default function Home() {
     console.log("SHOW ALL BUTTON", showAllButton);
     console.log("SHOWALL", showAll);
     return (
-        <div className="my-4 p-2 md:px-6 lg:px-14">
+        <div id="task1" className="my-4 p-2 md:px-6 lg:px-14">
             <div className="flex justify-between items-start bg-red-500 p-2 rounded my-4">
                 <h1 className="font-semibold ">TASK 1</h1>
                 <h1 className="font-semibold ">Time : </h1>
@@ -286,7 +286,7 @@ export default function Home() {
                     </div>
                 </div>
             </div>
-            <div className="flex justify-between items-start bg-[#f89622] p-2 rounded my-4">
+            <div id="task2" className="flex justify-between items-start bg-[#f89622] p-2 rounded my-4">
                 <h1 className="font-semibold">TASK 2</h1>
                 <h1 className="font-semibold">Time :</h1>
             </div>
@@ -313,7 +313,7 @@ export default function Home() {
                     );
                 })}
             </div>
-            <div className="flex justify-between items-start bg-[#fde100] p-2 rounded my-4">
+            <div id="task3" className="flex justify-between items-start bg-[#fde100] p-2 rounded my-4">
                 <h1 className="font-semibold">TASK 3</h1>
                 <h1 className="font-semibold">Time : </h1>
             </div>
@@ -345,7 +345,7 @@ export default function Home() {
                 })}
             </div>
 
-            <div className="flex justify-between items-start bg-[#4eb748] p-2 rounded my-4">
+            <div id="task4" className="flex justify-between items-start bg-[#4eb748] p-2 rounded my-4">
                 <h1 className="font-semibold">TASK 4</h1>
                 <h1 className="font-semibold">Time : </h1>
             </div>
@@ -401,53 +401,40 @@ export default function Home() {
                     )}
                 </div>
             </div>
-            {allowedPositions.map((allowedPosition, i) => {
-                return (
-                    <>
-                        <div className="inline-block mx-2">
-                            <Grid
-                                onHandleBlackCellsArray={handleBlackCellsArray}
-                                isClickable={false}
-                                key={i}
-                                rows={rowData4}
-                                columns={columnData4}
-                                sizeData={sizeData}
-                                colorData={allowedPosition}
-                            />
-                        </div>
-                    </>
-                );
-            })}
-            <h1 className="font-semibold bg-blue-400 p-2 rounded my-4">TASK 5</h1>
-            <div className="flex flex-col my-4">
-            <div className="flex justify-center items-center">
-                    <Grid
-                        onHandleBlackCellsArray={handleBlackCellsArray5}
-                        isClickable={true}
-                        rows={rowData5}
-                        columns={columnData5}
-                        sizeData={sizeData}
-                        colorData={task5content}
-                    />
-                </div>
-                <div className="flex justify-center items-center mr-10 mt-4">
-                    <div className="ml-[14px]">
-                        <p>Filled = {task5filled}</p>
-                        <p>Unfilled = {task5unfilled}</p>
-                    </div>
-                </div>
-                <div className="flex justify-center items-center mr-10 mt-4">
-                    <div className="ml-[14px]">
-                        <ColRowPicker onColRowChange={handleColRowChange5} />
-                    </div>
-                </div>
+            <div id="task5" className="flex justify-between items-start bg-blue-300 p-2 rounded my-4">
+                <h1 className="font-semibold">TASK 5</h1>
+                <h1 className="font-semibold">Time : </h1>
             </div>
-            <div className="md:ml-4 lg:ml-8 my-4">
+            <div className="border-2 border-blue-300">
+                <div className="flex flex-col my-4">
+                    <div className="flex justify-center items-center">
+                        <Grid
+                            onHandleBlackCellsArray={handleBlackCellsArray5}
+                            isClickable={true}
+                            rows={rowData5}
+                            columns={columnData5}
+                            sizeData={sizeData}
+                            colorData={task5content}
+                        />
+                    </div>
+                    <div className="flex justify-center items-center mr-10 mt-4">
+                        <div className="ml-[14px]">
+                            <p>Filled = {task5filled}</p>
+                            <p>Unfilled = {task5unfilled}</p>
+                        </div>
+                    </div>
+                    <div className="flex justify-center items-center mr-10 mt-4">
+                        <div className="ml-[14px]">
+                            <ColRowPicker onColRowChange={handleColRowChange5} />
+                        </div>
+                    </div>
+                </div>
+                <div className="md:ml-4 lg:ml-8 my-4">
                     <button className="rounded bg-white p-2 my-2 border-2 border-black flex" onClick={task5apiCall}>
                         Generate a Random Shape
                     </button>
                 </div>
-                
+            </div>
         </div>
     );
 }
