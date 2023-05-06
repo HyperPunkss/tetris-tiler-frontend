@@ -81,12 +81,12 @@ const Grid = ({ rows, columns, sizeData, colorData, isClickable }) => {
         );
     }
 
-    const blackCellsArray =[]
+    const blackCellsArray = []
     // console.log("blackcells", blackCells);
     for(let i=0; i<blackCells.length;i++){
-        
-        blackCellsArray.push([blackCells[i].row, blackCells[i].col])
+        blackCellsArray.push([blackCells[i].col, rows - blackCells[i].row - 1])
     }
+    console.log(blackCellsArray);
     
 
     return (
