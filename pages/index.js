@@ -41,6 +41,8 @@ export default function Home() {
     }
 
     //TASK 4
+    const [allowedPositions, setAllowedPositions] = useState([])
+
     function task4apiCall() {
         const finalBlackCellsArray = [];
         for (let i = 0; i < blackCellsArray.length; i++) {
@@ -51,8 +53,8 @@ export default function Home() {
             gridSizeY: columnData4,
             letter: uniqueLetterData4,
             blackHoles: finalBlackCellsArray,
-            allowRotations: true,
-            allowFlip: true,
+            allowRotations: rotationValue4,
+            allowFlip: flipValue4,
         });
         console.log(task4data);
         let config = {
@@ -71,6 +73,7 @@ export default function Home() {
             .request(config)
             .then((response) => {
                 console.log(JSON.stringify(response.data));
+                setAllowedPositions(response.data)
             })
             .catch((error) => {
                 console.log(error);
@@ -241,6 +244,23 @@ export default function Home() {
                     </button>
                 </div>
             </div>
+            {allowedPositions.map((allowedPosition, i) => {
+                return (
+                    <>
+                        <div className="inline-block mx-2">
+                            <Grid
+                                onHandleBlackCellsArray={handleBlackCellsArray}
+                                isClickable={false}
+                                key={i}
+                                rows={rowData4}
+                                columns={columnData4}
+                                sizeData={sizeData}
+                                colorData={allowedPosition}
+                            />
+                        </div>
+                    </>
+                );
+            })}
         </div>
     );
 }
