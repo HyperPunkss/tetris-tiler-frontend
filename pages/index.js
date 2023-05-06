@@ -76,9 +76,9 @@ export default function Home() {
 
     console.log(uniqueLetterData);
     return (
-        <div className="my-4 p-2">
-            <h1 className="font-bold bg-blue-400 p-2 rounded">TASK 1</h1>
-            <div className="flex flex-col">
+        <div className="my-4 p-2 md:px-6 lg:px-14">
+            <h1 className="font-semibold bg-[#ee2733] p-2 rounded">TASK 1</h1>
+            <div className="flex flex-col my-4">
                 <div className="flex justify-center items-center">
                     <Grid rows={rowData} columns={columnData} sizeData={sizeData} colorData={""} />
                 </div>
@@ -87,17 +87,23 @@ export default function Home() {
                     <ColRowPicker onColRowChange={handleColRowChange} />
                 </div>
             </div>
-            <h1 className="font-bold bg-blue-400 p-2 rounded">TASK 2</h1>
-            <div className="md:ml-4 lg:ml-8">
+            <h1 className="font-semibold bg-[#f89622] p-2 rounded">TASK 2</h1>
+            <div className="md:ml-4 lg:ml-8 my-4">
                 <button className="rounded bg-white p-2 my-2 border-2 border-black flex" onClick={task2apiCall}>
                     Generate all the shapes!
                 </button>
             </div>
             {shapes.map((shape, i) => {
                 console.log("SHAPE CONTENT", shape.content);
-                return <Grid key={i} rows={5} columns={5} sizeData={sizeData} colorData={shape.content} />;
+                return (
+                    <>
+                        <div className="inline-block mx-2 text-center">
+                            <Grid key={i} rows={5} columns={5} sizeData={sizeData} colorData={shape.content} />
+                        </div>
+                    </>
+                );
             })}
-            <h1 className="font-bold bg-blue-400 p-2 rounded">TASK 3</h1>
+            <h1 className="font-semibold bg-[#fde100] p-2 rounded my-4">TASK 3</h1>
             <button className="rounded bg-white p-2 my-2 border-2 border-black flex" onClick={task3apiCall}>
                 Generate the Shape`s Rotations
             </button>
@@ -105,8 +111,15 @@ export default function Home() {
                 <LetterPickerUnique onUniqueLetterChange={handleUniqueLetterChange} />
             </div>
             {rotations.map((rotation, i) => {
-                return <Grid key={i} rows={5} columns={5} sizeData={sizeData} colorData={rotation.content} />;
+                return (
+                    <>
+                        <div className="inline-block mx-2">
+                            <Grid key={i} rows={5} columns={5} sizeData={sizeData} colorData={rotation.content} />
+                        </div>
+                    </>
+                );
             })}
+            <h1 className="font-semibold bg-[#4eb748] p-2 rounded my-4">TASK 3</h1>
         </div>
     );
 }
