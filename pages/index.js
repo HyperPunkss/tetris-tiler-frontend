@@ -1,12 +1,16 @@
 import Grid from "@/components/Grid";
 import LetterPicker from "@/components/LetterPicker";
+import RowPicker from "@/components/RowPicker";
 import SizePicker from "@/components/SizePicker";
 import axios from "axios";
 import Image from "next/image";
 import { useState } from "react";
 
 export default function Home() {
-  //TASK 2 - Getting all the shape information from the API
+    const [sizeData,setSizeData] = useState('')
+    const [columnData,setColumnData] = useState('')
+    const [rowData,setRowData] = useState('')
+    //TASK 2 - Getting all the shape information from the API
   const [shapes, setShapes] = useState([])
   
   const testObj = [
@@ -81,16 +85,26 @@ export default function Home() {
         });
     //console.log(result[0]);
 
+    //Callback function
+    function HandleSizeChange(newSize){
+        setSizeData(newSize)
+    }
+
+    console.log(sizeData);
     return (
         <div className="my-4 p-2">
             <h1 className="font-bold bg-blue-400 p-2 rounded">TASK 1</h1>
             <div className="flex flex-col">
-                <div>
-                    <Grid rows={9} columns={9} />
+                <div className="flex justify-center items-center">
+                    <Grid rows={5} columns={5} sizeData={sizeData} />
                 </div>
-                <SizePicker />
-                <LetterPicker />
-                div
+                <div className="flex justify-center items-center p-4">
+                    <SizePicker onSizeChange={HandleSizeChange}/>
+                    <RowPicker />
+                </div>
+                <div className="ml-32 grid ">
+                    <LetterPicker />
+                </div>
             </div>
             <h1 className="font-bold bg-blue-400 p-2 rounded">TASK 2</h1>
             <div className="">
