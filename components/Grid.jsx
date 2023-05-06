@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 const Grid = ({ rows, columns, sizeData }) => {
     const [cellSize, setCellSize] = useState("medium");
+    const [cellColor, setCellColor] = useState("")
 
     const handleClick = (id) => {
         console.log(id);
@@ -24,15 +25,19 @@ const Grid = ({ rows, columns, sizeData }) => {
       {letter: "B", color: "#000000"},
       {letter: "E", color: "#ffffff"}
   ];
-  var input;
-  const result = letterArray
-      .filter((item) => {
-          return item.letter === input;
-      })
-      .map((item) => {
-          return item.color;
-      });
-  //console.log(result[0]);
+  var input = [];
+  for(let i; i<input.length; i++){
+    const result = letterArray
+    .filter((item) => {
+        return item.letter === input[i];
+    })
+    .map((item) => {
+        return item.color;
+    });
+    setCellColor(result[0])
+//console.log(result[0]);
+  }
+  
 
     const handleSizeChange = (event) => {
         setCellSize(event.target.value);

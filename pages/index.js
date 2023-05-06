@@ -1,10 +1,9 @@
 import Grid from "@/components/Grid";
 import LetterPicker from "@/components/LetterPicker";
-
 import SizePicker from "@/components/SizePicker";
 import axios from "axios";
 import Image from "next/image";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import ColRowPicker from "@/components/ColRowPicker";
 
 export default function Home() {
@@ -16,18 +15,14 @@ export default function Home() {
     //TASK 2 - Getting all the shape information from the API
     const [shapes, setShapes] = useState([])
 
-    const testObj = [
-        {letter: "F", content: "EEEEE EEEEE EEFFE EFFEE EEFEE"},
-        {letter: "I", content: "EEIEE EEIEE EEIEE EEIEE EEIEE"}
-    ]
-    const testObjJSON = JSON.stringify(testObj)
-
-  const task2apiCall = async() =>{
+  async function task2apiCall() {
     await axios.get('http://matsaki95.ddns.net:8900/api/v1/a2-task').then((response) => {
-      setShapes(JSON.parse(response.data))
+      // setShapes(JSON.parse(response.data))
+      // console.log(response.data);
+      setShapes(response.data)
     })
     // setShapes(JSON.parse(testObjJSON))
-    console.log(shapes);
+    // console.log(shapes);
     for(let i=0; i<shapes.length; i++){
       console.log(shapes[i].content);
     }
