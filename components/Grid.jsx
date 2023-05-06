@@ -7,6 +7,33 @@ const Grid = ({ rows, columns, sizeData }) => {
         console.log(id);
     };
 
+    //Letter Compare and returning the matching Colour
+    const letterArray = [
+      { letter: "F", color: "#001fc4" },
+      { letter: "I", color: "#9c1516" },
+      { letter: "L", color: "#efee29" },
+      { letter: "N", color: "#e719e2" },
+      { letter: "P", color: "#07d4f3" },
+      { letter: "T", color: "#8a8a8a" },
+      { letter: "U", color: "#00e53f" },
+      { letter: "V", color: "#f19a05" },
+      { letter: "W", color: "#d5d5d5" },
+      { letter: "X", color: "#2097b8" },
+      { letter: "Y", color: "#b82082" },
+      { letter: "Z", color: "#ff0011" },
+      {letter: "B", color: "#000000"},
+      {letter: "E", color: "#ffffff"}
+  ];
+  var input;
+  const result = letterArray
+      .filter((item) => {
+          return item.letter === input;
+      })
+      .map((item) => {
+          return item.color;
+      });
+  //console.log(result[0]);
+
     const handleSizeChange = (event) => {
         setCellSize(event.target.value);
     };

@@ -20,10 +20,10 @@ export default function Home() {
   const testObjJSON = JSON.stringify(testObj)
 
   const task2apiCall = async() =>{
-    // await axios.get('/url/user').then((response) => {
-    //   setShapes(JSON.parse(response.data))
-    // })
-    setShapes(JSON.parse(testObjJSON))
+    await axios.get('http://matsaki95.ddns.net:8900/api/v1/a2-task').then((response) => {
+      setShapes(JSON.parse(response.data))
+    })
+    // setShapes(JSON.parse(testObjJSON))
     console.log(shapes);
     for(let i=0; i<shapes.length; i++){
       console.log(shapes[i].content);
@@ -56,35 +56,6 @@ export default function Home() {
         }
     );
   }
-
-    
-
-    //Letter Compare and returning the matching Colour
-    const letterArray = [
-        { letter: "F", color: "#001fc4" },
-        { letter: "I", color: "#9c1516" },
-        { letter: "L", color: "#efee29" },
-        { letter: "N", color: "#e719e2" },
-        { letter: "P", color: "#07d4f3" },
-        { letter: "T", color: "#8a8a8a" },
-        { letter: "U", color: "#00e53f" },
-        { letter: "V", color: "#f19a05" },
-        { letter: "W", color: "#d5d5d5" },
-        { letter: "X", color: "#2097b8" },
-        { letter: "Y", color: "#b82082" },
-        { letter: "Z", color: "#ff0011" },
-        {letter: "B", color: "#000000"},
-        {letter: "E", color: "#ffffff"}
-    ];
-    var input;
-    const result = letterArray
-        .filter((item) => {
-            return item.letter === input;
-        })
-        .map((item) => {
-            return item.color;
-        });
-    //console.log(result[0]);
 
     //Callback function
     function HandleSizeChange(newSize){
