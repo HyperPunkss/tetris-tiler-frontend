@@ -10,7 +10,7 @@ import { loadGetInitialProps } from "next/dist/shared/lib/utils";
 import RotationButton from "@/components/Grid Options/RotationButton";
 import FlipButton from "@/components/Grid Options/FlipButton";
 
-export default function Home() {
+export default function Home({ links }) {
     const [showAllButton, setShowAllButton] = useState(false);
     const [showLessButton, setShowLessButton] = useState(false);
     const [sizeData, setSizeData] = useState("");
@@ -101,16 +101,16 @@ export default function Home() {
     }
 
     //TASK 5
-    function task5apiCall() {
-        const finalBlackCellsArray = [];
+    function task5apiCall(){
+        const finalBlackCellsArray = []
         for (let i = 0; i < blackCellsArray5.length; i++) {
             finalBlackCellsArray.push([blackCellsArray5[i].col, rowData5 - blackCellsArray5[i].row - 1]);
         }
         let task5data = JSON.stringify({
             gridSizeX: rowData5,
             gridSizeY: columnData5,
-            blackHoles: finalBlackCellsArray,
-        });
+            blackHoles: finalBlackCellsArray
+        })
         console.log(finalBlackCellsArray);
         // console.log(task5data);
         let config = {
@@ -128,7 +128,6 @@ export default function Home() {
         axios
             .request(config)
             .then((response) => {
-                console.log(response);
                 setTask5time(response.data["timeTaken"]);
                 setTask5Content(response.data["grid"]);
                 setTask5filled(response.data["filled"]);
@@ -247,7 +246,7 @@ export default function Home() {
     // console.log("SHOW ALL BUTTON", showAllButton);
     // console.log("SHOWALL", showAll);
     return (
-        <div className="my-4 p-2 md:px-6 lg:px-14">
+        <div id="task1" className="my-4 p-2 md:px-6 lg:px-14">
             <div className="flex justify-between items-start bg-red-500 p-2 rounded my-4">
                 <h1 className="font-semibold ">TASK 1</h1>
                 <h1 className="font-semibold ">Time : </h1>
@@ -271,7 +270,7 @@ export default function Home() {
                     </div>
                 </div>
             </div>
-            <div className="flex justify-between items-start bg-[#f89622] p-2 rounded my-4">
+            <div id="task2" className="flex justify-between items-start bg-[#f89622] p-2 rounded my-4">
                 <h1 className="font-semibold">TASK 2</h1>
                 <h1 className="font-semibold">Time :</h1>
             </div>
@@ -301,7 +300,7 @@ export default function Home() {
                     );
                 })}
             </div>
-            <div className="flex justify-between items-start bg-[#fde100] p-2 rounded my-4">
+            <div id="task3" className="flex justify-between items-start bg-[#fde100] p-2 rounded my-4">
                 <h1 className="font-semibold">TASK 3</h1>
                 <h1 className="font-semibold">Time : </h1>
             </div>
@@ -336,7 +335,7 @@ export default function Home() {
                 })}
             </div>
 
-            <div className="flex justify-between items-start bg-[#4eb748] p-2 rounded my-4">
+            <div id="task4" className="flex justify-between items-start bg-[#4eb748] p-2 rounded my-4">
                 <h1 className="font-semibold">TASK 4</h1>
                 <h1 className="font-semibold">Time : </h1>
             </div>
@@ -392,26 +391,10 @@ export default function Home() {
                     )}
                 </div>
             </div>
-            {allowedPositions.map((allowedPosition, i) => {
-                return (
-                    <>
-                        <div className="inline-block mx-2">
-                            <Grid
-                                onHandleBlackCellsArray={handleBlackCellsArray}
-                                isClickable={false}
-                                key={i}
-                                rows={rowData4}
-                                columns={columnData4}
-                                sizeData={sizeData}
-                                colorData={allowedPosition}
-                            />
-                        </div>
-                    </>
-                );
-            })}
+            
             <h1 className="font-semibold bg-blue-400 p-2 rounded my-4">TASK 5</h1>
             <div className="flex flex-col my-4">
-                <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center">
                     <Grid
                         onHandleBlackCellsArray={handleBlackCellsArray5}
                         isClickable={true}
