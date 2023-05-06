@@ -87,7 +87,14 @@ const Grid = ({ rows, columns, sizeData, colorData, isClickable }) => {
         );
     }
 
-    console.log(cellColors);
+    const blackCellsArray = []
+    // console.log("blackcells", blackCells);
+    for(let i=0; i<blackCells.length;i++){
+        blackCellsArray.push([blackCells[i].col, rows - blackCells[i].row - 1])
+    }
+    console.log(blackCellsArray);
+    
+
     return (
         <div className="mt-4">
             <div className="flex flex-col">{grid}</div>
