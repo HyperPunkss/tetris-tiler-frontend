@@ -3,8 +3,32 @@ import LetterPicker from "@/components/LetterPicker";
 import SizePicker from "@/components/SizePicker";
 import axios from "axios";
 import Image from "next/image";
+import { useState } from "react";
 
 export default function Home() {
+  //TASK 2 - Getting all the shape information from the API
+  const [shapes, setShapes] = useState([])
+  
+  const testObj = [
+    {F: "EEEEE EEEEE EEFFE EFFEE EEFEE"},
+    {I: "EEIEE EEIEE EEIEE EEIEE EEIEE"}
+  ]
+  const testObjJSON = JSON.stringify(testObj)
+
+  function task2apiCall(){
+    // axios.get('/url/user').then((response) => {
+    //   setShapes(JSON.parse(response.data))
+    // })
+    
+    setShapes(JSON.parse(testObjJSON))
+    console.log(shapes);
+    const shape = testObj.map((item) =>{
+      return item;
+    })
+    console.log(Object.keys(shape[0]));
+  }
+
+  //TASK 10 - Generating Data and Sending them to the API with Axios 
     var data = JSON.stringify({
         x: 5,
         y: 5,
@@ -43,6 +67,8 @@ export default function Home() {
         { letter: "X", color: "#2097b8" },
         { letter: "Y", color: "#b82082" },
         { letter: "Z", color: "#ff0011" },
+        {letter: "B", color: "#000000"},
+        {letter: "E", color: "#ffffff"}
     ];
     var input;
     const result = letterArray
@@ -66,7 +92,11 @@ export default function Home() {
                 div
             </div>
             <h1 className="font-bold bg-blue-400 p-2 rounded">TASK 2</h1>
-            <div className=""></div>
+            <div className="">
+              <button className="rounded bg-white p-2 m-4 border-2 border-black flex" onClick={task2apiCall}>
+                Generate all the shapes!
+              </button>
+            </div>
         </div>
     );
 }
