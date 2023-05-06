@@ -11,6 +11,9 @@ import RotationButton from "@/components/Grid Options/RotationButton";
 import FlipButton from "@/components/Grid Options/FlipButton";
 
 export default function Home() {
+    const [showAllButton, setShowAllButton] = useState(false);
+    const [showLessButton, setShowLessButton] = useState(false);
+
     const [sizeData, setSizeData] = useState("");
     const [columnData1, setColumnData1] = useState(5);
     const [columnData4, setColumnData4] = useState(8);
@@ -20,7 +23,8 @@ export default function Home() {
     const [uniqueLetterData4, setUniqueLetterData4] = useState("");
     const [blackCellsArray, setBlackCellsArray] = useState([]);
     const [rotationValue4, setRotationValue4] = useState(false);
-    const [flipValue4,setFlipValue4] = useState(false)
+    const [flipValue4, setFlipValue4] = useState(false);
+    const [showAll, setShowAll] = useState(false);
     //TASK 2 - Getting all the shape information from the API
     const [shapes, setShapes] = useState([]);
 
@@ -41,7 +45,7 @@ export default function Home() {
     }
 
     //TASK 4
-    const [allowedPositions, setAllowedPositions] = useState([])
+    const [allowedPositions, setAllowedPositions] = useState([]);
 
     function task4apiCall() {
         const finalBlackCellsArray = [];
@@ -73,7 +77,7 @@ export default function Home() {
             .request(config)
             .then((response) => {
                 console.log(JSON.stringify(response.data));
-                setAllowedPositions(response.data)
+                setAllowedPositions(response.data);
             })
             .catch((error) => {
                 console.log(error);
@@ -139,12 +143,28 @@ export default function Home() {
         setRotationValue4(newRotation);
     }
 
-    function handleFlipChange(newFlip){
-        setFlipValue4(newFlip)
+    function handleFlipChange(newFlip) {
+        setFlipValue4(newFlip);
     }
-
-    console.log("INDEX LOG",flipValue4);
-    console.log("INDEX LOG",rotationValue4);
+    //Show All Objects
+    const objectsToRender = showAll ? allowedPositions : allowedPositions.slice(0, 3);
+    const renderAllObjects = objectsToRender.map((allowedPosition, i) => {
+        return (
+            <div className="inline-block mx-2" key={i}>
+                <Grid
+                    onHandleBlackCellsArray={handleBlackCellsArray}
+                    isClickable={false}
+                    rows={rowData4}
+                    columns={columnData4}
+                    sizeData={sizeData}
+                    colorData={allowedPosition}
+                />
+            </div>
+        );
+    });
+    
+    console.log("SHOW ALL BUTTON", showAllButton);
+    console.log("SHOWALL", showAll);
     return (
         <div className="my-4 p-2 md:px-6 lg:px-14">
             <h1 className="font-semibold bg-red-500 p-2 rounded">TASK 1</h1>
@@ -229,7 +249,7 @@ export default function Home() {
                         <RotationButton onRotationChange={handleRotationChange} />
                     </div>
                     <div>
-                        <FlipButton onFlipChange={handleFlipChange}/>
+                        <FlipButton onFlipChange={handleFlipChange} />
                     </div>
                     <div className="ml-[14px]">
                         <ColRowPicker onColRowChange={handleColRowChange4} />
@@ -239,28 +259,30 @@ export default function Home() {
                     <LetterPickerUnique onUniqueLetterChange={handleUniqueLetterChange4} />
                 </div>
                 <div className="md:ml-4 lg:ml-8 my-4">
-                    <button className="rounded bg-white p-2 my-2 border-2 border-black flex" onClick={task4apiCall}>
+                    <button
+                        className="rounded bg-white p-2 my-2 border-2 border-black flex"
+                        onClick={() => {
+                            task4apiCall();
+                            setShowAllButton(true);
+                        }}
+                    >
                         Generate Any Allowed Position
                     </button>
                 </div>
             </div>
-            {allowedPositions.map((allowedPosition, i) => {
-                return (
-                    <>
-                        <div className="inline-block mx-2">
-                            <Grid
-                                onHandleBlackCellsArray={handleBlackCellsArray}
-                                isClickable={false}
-                                key={i}
-                                rows={rowData4}
-                                columns={columnData4}
-                                sizeData={sizeData}
-                                colorData={allowedPosition}
-                            />
-                        </div>
-                    </>
-                );
-            })}
+            <div className="flex items-center flex-wrap">
+                {renderAllObjects}
+                {!showAll && showAllButton && (
+                    <button className="bg-purple-200 p-2 rounded-md t" onClick={() => setShowAll(true)}>
+                        Show all
+                    </button>
+                )}
+                {showAll && !showLessButton && (
+                    <button className="bg-purple-200 p-2 rounded-md t" onClick={() => setShowAll(false)}>
+                        Show Less
+                    </button>
+                )}
+            </div>
         </div>
     );
 }
