@@ -61,13 +61,12 @@ export default function Home() {
         setSizeData(newSize)
     }
 
+    //Callback function for Columns & Rows Size
     function handleColRowChange(newSize) {
         setColumnData(newSize[0])
         setRowData(newSize[1])
     }
 
-    console.log('COL DATA', columnData)
-    console.log('ROW DATA', rowData)
     return (
         <div className="my-4 p-2">
             <h1 className="font-bold bg-blue-400 p-2 rounded">TASK 1</h1>
