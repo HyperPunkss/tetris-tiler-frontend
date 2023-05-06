@@ -42,10 +42,10 @@ function LetterPicker({onUniqueLetterChange}) {
     
     return (
         <>
-            <div className="grid grid-cols-3 my-4 mr-36">
+            <div className="grid grid-cols-3 my-4 mr-8 md:grid-cols-4 lg:grid-cols-6">
                 {images.map((image) => (
                     <>
-                        <div className="flex justify-center items-center">
+                        <div className="flex justify-center items-center ">
                             <Image key={image.id} src={image.src} alt={image.alt} width={50} height={50}/>
                             <input className="ml-4" type="radio" name="letter-picker" id={image.id}
                                    value={specificLetterID} defaultChecked={image.id === 'f'}
