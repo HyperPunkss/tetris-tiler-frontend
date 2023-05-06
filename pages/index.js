@@ -25,6 +25,7 @@ export default function Home() {
     // console.log(shapes);
     for(let i=0; i<shapes.length; i++){
       console.log(shapes[i].content);
+      // return <Grid rows={5} columns={5} sizeData={sizeData} colorData={shapes[i]}/>
     }
     
   }
@@ -72,7 +73,7 @@ export default function Home() {
             <h1 className="font-bold bg-blue-400 p-2 rounded">TASK 1</h1>
             <div className="flex flex-col">
                 <div className="flex justify-center items-center">
-                    <Grid rows={rowData} columns={columnData} sizeData={sizeData}/>
+                    <Grid rows={rowData} columns={columnData} sizeData={sizeData} colorData={"F"}/>
                 </div>
                 <div className="flex justify-center items-center p-4">
                     <SizePicker onSizeChange={handleSizeChange}/>
