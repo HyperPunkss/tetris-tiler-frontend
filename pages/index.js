@@ -13,7 +13,6 @@ import FlipButton from "@/components/Grid Options/FlipButton";
 export default function Home() {
     const [showAllButton, setShowAllButton] = useState(false);
     const [showLessButton, setShowLessButton] = useState(false);
-
     const [sizeData, setSizeData] = useState("");
     const [columnData1, setColumnData1] = useState(5);
     const [columnData4, setColumnData4] = useState(8);
@@ -31,11 +30,17 @@ export default function Home() {
     const [task5content, setTask5Content] = useState("")
     const [task5filled, setTask5filled] = useState()
     const [task5unfilled, setTask5unfilled] = useState()
+    const [task2time, setTask2time] = useState()
+    const [task3time, setTask3time] = useState()
+    const [task4time, setTask4time] = useState()
+    const [task5time, setTask5time] = useState()
+    
     //TASK 2 - Getting all the shape information from the API
     const [shapes, setShapes] = useState([]);
 
     async function task2apiCall() {
         await axios.get("http://matsaki95.ddns.net:8900/api/v1/a2-task").then((response) => {
+            setTask2time(response.data.pop())
             setShapes(response.data);
         });
     }
@@ -45,8 +50,8 @@ export default function Home() {
 
     async function task3apiCall() {
         await axios.get("http://matsaki95.ddns.net:8900/api/v1/a3-task/?letter=" + uniqueLetterData3).then((response) => {
+            setTask3time(response.data.pop())
             setRotations(response.data);
-            console.log(response.data);
         });
     }
 
@@ -82,7 +87,7 @@ export default function Home() {
         axios
             .request(config)
             .then((response) => {
-                console.log(JSON.stringify(response.data));
+                setTask4time(response.data.pop())
                 setAllowedPositions(response.data);
             })
             .catch((error) => {
@@ -118,7 +123,7 @@ export default function Home() {
         axios
             .request(config)
             .then((response) => {
-                console.log(JSON.stringify(response.data));
+                setTask5time(response.data.pop())
                 setTask5Content(response.data['grid'])
                 setTask5filled(response.data['filled'])
                 setTask5unfilled(response.data['unfilled'])
