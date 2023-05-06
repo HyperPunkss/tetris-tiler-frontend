@@ -5,6 +5,7 @@ import axios from "axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import ColRowPicker from "@/components/ColRowPicker";
+import { loadGetInitialProps } from "next/dist/shared/lib/utils";
 
 export default function Home() {
     const [sizeData, setSizeData] = useState("");
@@ -16,17 +17,17 @@ export default function Home() {
 
     async function task2apiCall() {
         await axios.get("http://matsaki95.ddns.net:8900/api/v1/a2-task").then((response) => {
-            // setShapes(JSON.parse(response.data))
-            // console.log(response.data);
             setShapes(response.data);
         });
-        // setShapes(JSON.parse(testObjJSON))
-        // console.log(shapes);
-        // for(let i=0; i<shapes.length; i++){
-        //   console.log("STRING CONTENT",shapes[i].content);
-        // return <Grid rows={5} columns={5} sizeData={sizeData} colorData={shapes[i]}/>
+    }
 
-        // }
+    //TASK 3 
+    const [rotations, setRotations] = useState([])
+    async function task3apiCall() {
+      await axios.get("http://matsaki95.ddns.net:8900/api/v1/a3-task/?letter=f").then((response) => {
+        setRotations(response.data)
+        console.log(response.data);
+      })
     }
 
     //TASK 10 - Generating Data and Sending them to the API with Axios
@@ -92,6 +93,16 @@ export default function Home() {
                 console.log("SHAPE CONTENT", shape.content);
                 return <Grid key={i} rows={5} columns={5} sizeData={sizeData} colorData={shape.content} />;
             })}
+            <h1 className="font-bold bg-blue-400 p-2 rounded m-2">TASK 3</h1>
+            <div>
+            <button className="rounded bg-white p-2 m-4 border-2 border-black flex" onClick={task3apiCall}>
+                    Generate the Shape`s Rotations
+            </button>
+            </div>
+            {rotations.map((rotation, i) => {
+                return <Grid key={i} rows={5} columns={5} sizeData={sizeData} colorData={rotation.content}/>
+              })
+            }
         </div>
     );
 }
