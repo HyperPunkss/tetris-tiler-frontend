@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-const Grid = ({ rows, columns, sizeData, colorData}) => {
+const Grid = ({ rows, columns, sizeData, colorData, isClickable }) => {
     const [cellSize, setCellSize] = useState("medium");
     const [cellColors, setCellColors] = useState([]);
+    const [blackCells, setBlackCells] = useState([]);
 
     useEffect(() => {
         // Letter Compare and returning the matching Colour
@@ -22,10 +23,8 @@ const Grid = ({ rows, columns, sizeData, colorData}) => {
             { letter: "B", color: "#000000" },
             { letter: "E", color: "#ffffff" },
         ];
-        // console.log("colordata", colorData.length);
-        // console.log(colorData);
-        const newColorData = colorData.replace(/\s/g,'')
-        // console.log(newColorData);
+
+        const newColorData = colorData.replace(/\s/g, "");
         const colors = [];
         for (let i = 0; i < newColorData.length; i++) {
             const result = letterArray
@@ -35,14 +34,19 @@ const Grid = ({ rows, columns, sizeData, colorData}) => {
                 .map((item) => {
                     return item.color;
                 });
-            // console.log("result", result);
             colors.push(result[0]);
         }
         setCellColors(colors);
     }, [colorData]);
 
     const handleClick = (id) => {
-        console.log(id);
+        const [row, col] = id.split("-");
+        const isBlack = blackCells.some((cell) => cell.row === parseInt(row) && cell.col === parseInt(col));
+        if (isBlack) {
+            setBlackCells((prev) => prev.filter((cell) => cell.row !== parseInt(row) || cell.col !== parseInt(col)));
+        } else {
+            setBlackCells((prev) => [...prev, { row: parseInt(row), col: parseInt(col) }]);
+        }
     };
 
     const handleSizeChange = (event) => {
@@ -60,12 +64,13 @@ const Grid = ({ rows, columns, sizeData, colorData}) => {
         const row = [];
         for (let j = 0; j < columns; j++) {
             const id = `${i}-${j}`;
+            const isBlack = blackCells.some((cell) => cell.row === i && cell.col === j);
             row.push(
                 <div
                     className={`${cellClasses[sizeData]} border border-black`}
                     key={id}
                     onClick={() => handleClick(id)}
-                    style={{ backgroundColor: cellColors[i * columns + j] }}
+                    style={{ backgroundColor: isBlack ? "#000000" : cellColors[i * columns + j] }}
                 ></div>
             );
         }
@@ -76,6 +81,7 @@ const Grid = ({ rows, columns, sizeData, colorData}) => {
         );
     }
 
+    console.log(blackCells);
     return (
         <div className="mt-4">
             <div className="flex flex-col">{grid}</div>

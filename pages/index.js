@@ -14,7 +14,8 @@ export default function Home() {
     const [columnData4, setColumnData4] = useState(8);
     const [rowData1, setRowData1] = useState(5);
     const [rowData4, setRowData4] = useState(8);
-    const [uniqueLetterData, setUniqueLetterData] = useState("");
+    const [uniqueLetterData3, setUniqueLetterData3] = useState("");
+    const [uniqueLetterData4, setUniqueLetterData4] = useState("");
 
     //TASK 2 - Getting all the shape information from the API
     const [shapes, setShapes] = useState([]);
@@ -29,7 +30,7 @@ export default function Home() {
     const [rotations, setRotations] = useState([]);
 
     async function task3apiCall() {
-        await axios.get("http://matsaki95.ddns.net:8900/api/v1/a3-task/?letter=" + uniqueLetterData).then((response) => {
+        await axios.get("http://matsaki95.ddns.net:8900/api/v1/a3-task/?letter=" + uniqueLetterData3).then((response) => {
             setRotations(response.data);
             console.log(response.data);
         });
@@ -73,22 +74,26 @@ export default function Home() {
         setRowData1(newSize[1]);
     }
 
-    function handleUniqueLetterChange(newUniqueLetter) {
-        setUniqueLetterData(newUniqueLetter);
-    }
-
     function handleColRowChange4(newSize) {
         setColumnData4(newSize[0]);
         setRowData4(newSize[1]);
     }
 
-    console.log(uniqueLetterData);
+    function handleUniqueLetterChange3(newUniqueLetter) {
+        setUniqueLetterData3(newUniqueLetter);
+    }
+
+    function handleUniqueLetterChange4(newUniqueLetter) {
+        setUniqueLetterData4(newUniqueLetter);
+    }
+
+    console.log(uniqueLetterData4);
     return (
         <div className="my-4 p-2 md:px-6 lg:px-14">
-            <h1 className="font-semibold bg-[#ee2733] p-2 rounded">TASK 1</h1>
+            <h1 className="font-semibold bg-red-500 p-2 rounded">TASK 1</h1>
             <div className="flex flex-col my-4">
                 <div className="flex justify-center items-center">
-                    <Grid rows={rowData1} columns={columnData1} sizeData={sizeData} colorData={""} />
+                    <Grid isClickable={false} rows={rowData1} columns={columnData1} sizeData={sizeData} colorData={""} />
                 </div>
                 <div className="flex justify-center items-center p-4">
                     <SizePicker onSizeChange={handleSizeChange} />
@@ -118,7 +123,7 @@ export default function Home() {
                 </button>
             </div>
             <div className="">
-                <LetterPickerUnique onUniqueLetterChange={handleUniqueLetterChange} />
+                <LetterPickerUnique onUniqueLetterChange={handleUniqueLetterChange3} />
             </div>
             {rotations.map((rotation, i) => {
                 return (
@@ -136,6 +141,9 @@ export default function Home() {
                 </div>
                 <div className="flex justify-center items-center p-4 mr-8">
                     <ColRowPicker onColRowChange={handleColRowChange4} />
+                </div>
+                <div>
+                    <LetterPickerUnique onUniqueLetterChange={handleUniqueLetterChange4} />
                 </div>
             </div>
         </div>
