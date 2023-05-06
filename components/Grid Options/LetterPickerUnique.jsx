@@ -14,18 +14,18 @@ import zImage from "../../styles/icons/z-letter.png";
 import {useEffect, useState} from "react";
 
 const images = [
-    {src: fImage, alt: "f-letter", id: "f"},
-    {src: iImage, alt: "i-letter", id: "i"},
-    {src: lImage, alt: "l-letter", id: "l"},
-    {src: nImage, alt: "n-letter", id: "n"},
-    {src: pImage, alt: "p-letter", id: "p"},
-    {src: tImage, alt: "t-letter", id: "t"},
-    {src: uImage, alt: "u-letter", id: "u"},
-    {src: vImage, alt: "v-letter", id: "v"},
-    {src: wImage, alt: "w-letter", id: "w"},
-    {src: xImage, alt: "x-letter", id: "x"},
-    {src: yImage, alt: "y-letter", id: "y"},
-    {src: zImage, alt: "z-letter", id: "z"},
+    {src: fImage, alt: "f-letter", id: "F"},
+    {src: iImage, alt: "i-letter", id: "I"},
+    {src: lImage, alt: "l-letter", id: "L"},
+    {src: nImage, alt: "n-letter", id: "N"},
+    {src: pImage, alt: "p-letter", id: "P"},
+    {src: tImage, alt: "t-letter", id: "T"},
+    {src: uImage, alt: "u-letter", id: "U"},
+    {src: vImage, alt: "v-letter", id: "V"},
+    {src: wImage, alt: "w-letter", id: "W"},
+    {src: xImage, alt: "x-letter", id: "X"},
+    {src: yImage, alt: "y-letter", id: "Y"},
+    {src: zImage, alt: "z-letter", id: "Z"},
 ];
 
 function LetterPicker({onUniqueLetterChange}) {
