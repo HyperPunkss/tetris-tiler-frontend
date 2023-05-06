@@ -3,13 +3,15 @@ import LetterPicker from "@/components/LetterPicker";
 import SizePicker from "@/components/SizePicker";
 import axios from "axios";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import ColRowPicker from "@/components/ColRowPicker";
+import LetterPickerUnique from "@/components/LetterPickerUnique";
 
 export default function Home() {
     const [sizeData, setSizeData] = useState("");
     const [columnData, setColumnData] = useState(5);
     const [rowData, setRowData] = useState(5);
+    const [uniqueLetterData, setUniqueLetterData] = useState('')
 
     //TASK 2 - Getting all the shape information from the API
     const [shapes, setShapes] = useState([]);
@@ -34,7 +36,7 @@ export default function Home() {
         var data = JSON.stringify({
             x: 5,
             y: 5,
-            holes: [{ x: 2, y: 2 }],
+            holes: [{x: 2, y: 2}],
             allow_rotations: true,
             allow_flips: false,
             shapes: ["T", "L"],
@@ -67,31 +69,40 @@ export default function Home() {
         setRowData(newSize[1]);
     }
 
+    function handleUniqueLetterChange(newUniqueLetter) {
+        setUniqueLetterData(newUniqueLetter)
+    }
+
+    console.log(uniqueLetterData)
     return (
         <div className="my-4 p-2">
             <h1 className="font-bold bg-blue-400 p-2 rounded">TASK 1</h1>
             <div className="flex flex-col">
                 <div className="flex justify-center items-center">
-                    <Grid rows={rowData} columns={columnData} sizeData={sizeData} colorData={""} />
+                    <Grid rows={rowData} columns={columnData} sizeData={sizeData} colorData={""}/>
                 </div>
                 <div className="flex justify-center items-center p-4">
-                    <SizePicker onSizeChange={handleSizeChange} />
-                    <ColRowPicker onColRowChange={handleColRowChange} />
+                    <SizePicker onSizeChange={handleSizeChange}/>
+                    <ColRowPicker onColRowChange={handleColRowChange}/>
                 </div>
                 <div className="ml-32 grid ">
-                    <LetterPicker />
+                    <LetterPicker/>
                 </div>
             </div>
             <h1 className="font-bold bg-blue-400 p-2 rounded">TASK 2</h1>
-            <div className="">
-                <button className="rounded bg-white p-2 m-4 border-2 border-black flex" onClick={task2apiCall}>
+            <div className="md:ml-4 lg:ml-8">
+                <button className="rounded bg-white p-2 my-2 border-2 border-black flex" onClick={task2apiCall}>
                     Generate all the shapes!
                 </button>
             </div>
             {shapes.map((shape, i) => {
                 console.log("SHAPE CONTENT", shape.content);
-                return <Grid key={i} rows={5} columns={5} sizeData={sizeData} colorData={shape.content} />;
+                return <Grid key={i} rows={5} columns={5} sizeData={sizeData} colorData={shape.content}/>;
             })}
+            <h1 className="font-bold bg-blue-400 p-2 rounded">TASK 3</h1>
+            <div className=''>
+                <LetterPickerUnique onUniqueLetterChange={handleUniqueLetterChange}/>
+            </div>
         </div>
     );
 }
