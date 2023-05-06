@@ -371,23 +371,7 @@ export default function Home({ links }) {
                     )}
                 </div>
             </div>
-            {allowedPositions.map((allowedPosition, i) => {
-                return (
-                    <>
-                        <div className="inline-block mx-2">
-                            <Grid
-                                onHandleBlackCellsArray={handleBlackCellsArray}
-                                isClickable={false}
-                                key={i}
-                                rows={rowData4}
-                                columns={columnData4}
-                                sizeData={sizeData}
-                                colorData={allowedPosition}
-                            />
-                        </div>
-                    </>
-                );
-            })}
+            
             <h1 className="font-semibold bg-blue-400 p-2 rounded my-4">TASK 5</h1>
             <div className="flex flex-col my-4">
             <div className="flex justify-center items-center">
