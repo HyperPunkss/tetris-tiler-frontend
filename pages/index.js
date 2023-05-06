@@ -1,11 +1,11 @@
 import Grid from "@/components/Grid";
-import LetterPicker from "@/components/LetterPicker";
-import SizePicker from "@/components/SizePicker";
+import LetterPicker from "@/components/Grid Options/LetterPicker";
+import SizePicker from "@/components/Grid Options/SizePicker";
 import axios from "axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import ColRowPicker from "@/components/ColRowPicker";
-import LetterPickerUnique from "@/components/LetterPickerUnique";
+import ColRowPicker from "@/components/Grid Options/ColRowPicker";
+import LetterPickerUnique from "@/components/Grid Options/LetterPickerUnique";
 import { loadGetInitialProps } from "next/dist/shared/lib/utils";
 
 export default function Home() {
