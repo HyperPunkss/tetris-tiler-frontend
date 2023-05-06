@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const Grid = ({ rows, columns, sizeData, colorData }) => {
+const Grid = ({ rows, columns, sizeData, colorData}) => {
     const [cellSize, setCellSize] = useState("medium");
     const [cellColors, setCellColors] = useState([]);
 
@@ -22,10 +22,10 @@ const Grid = ({ rows, columns, sizeData, colorData }) => {
             { letter: "B", color: "#000000" },
             { letter: "E", color: "#ffffff" },
         ];
-        console.log("colordata", colorData.length);
-        console.log(colorData);
+        // console.log("colordata", colorData.length);
+        // console.log(colorData);
         const newColorData = colorData.replace(/\s/g,'')
-        console.log(newColorData);
+        // console.log(newColorData);
         const colors = [];
         for (let i = 0; i < newColorData.length; i++) {
             const result = letterArray
@@ -35,7 +35,7 @@ const Grid = ({ rows, columns, sizeData, colorData }) => {
                 .map((item) => {
                     return item.color;
                 });
-            console.log("result", result);
+            // console.log("result", result);
             colors.push(result[0]);
         }
         setCellColors(colors);
