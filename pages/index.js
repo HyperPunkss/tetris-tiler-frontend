@@ -16,6 +16,7 @@ export default function Home() {
     const [rowData4, setRowData4] = useState(8);
     const [uniqueLetterData3, setUniqueLetterData3] = useState("");
     const [uniqueLetterData4, setUniqueLetterData4] = useState("");
+    const [blackCellsArray, setBlackCellsArray] = useState([]);
 
     //TASK 2 - Getting all the shape information from the API
     const [shapes, setShapes] = useState([]);
@@ -87,13 +88,24 @@ export default function Home() {
         setUniqueLetterData4(newUniqueLetter);
     }
 
-    
+    function handleBlackCellsArray(blackCellsArray) {
+        setBlackCellsArray(blackCellsArray)
+    }
+
+    console.log("INDEX LOG",blackCellsArray);
     return (
         <div className="my-4 p-2 md:px-6 lg:px-14">
             <h1 className="font-semibold bg-red-500 p-2 rounded">TASK 1</h1>
             <div className="flex flex-col my-4">
                 <div className="flex justify-center items-center">
-                    <Grid isClickable={false} rows={rowData1} columns={columnData1} sizeData={sizeData} colorData={""} />
+                    <Grid
+                        isClickable={false}
+                        rows={rowData1}
+                        columns={columnData1}
+                        sizeData={sizeData}
+                        colorData={""}
+                        onHandleBlackCellsArray={handleBlackCellsArray}
+                    />
                 </div>
                 <div className="flex justify-center items-center p-4">
                     <SizePicker onSizeChange={handleSizeChange} />
@@ -107,11 +119,17 @@ export default function Home() {
                 </button>
             </div>
             {shapes.map((shape, i) => {
-                
                 return (
                     <>
                         <div className="inline-block mx-2 text-center">
-                            <Grid key={i} rows={5} columns={5} sizeData={sizeData} colorData={shape.content} />
+                            <Grid
+                                onHandleBlackCellsArray={handleBlackCellsArray}
+                                key={i}
+                                rows={5}
+                                columns={5}
+                                sizeData={sizeData}
+                                colorData={shape.content}
+                            />
                         </div>
                     </>
                 );
@@ -129,7 +147,15 @@ export default function Home() {
                 return (
                     <>
                         <div className="inline-block mx-2">
-                            <Grid isClickable={false} key={i} rows={5} columns={5} sizeData={sizeData} colorData={rotation.content} />
+                            <Grid
+                                onHandleBlackCellsArray={handleBlackCellsArray}
+                                isClickable={false}
+                                key={i}
+                                rows={5}
+                                columns={5}
+                                sizeData={sizeData}
+                                colorData={rotation.content}
+                            />
                         </div>
                     </>
                 );
@@ -137,7 +163,14 @@ export default function Home() {
             <h1 className="font-semibold bg-[#4eb748] p-2 rounded my-4">TASK 4</h1>
             <div className="flex flex-col my-4">
                 <div className="flex justify-center items-center">
-                    <Grid isClickable={true} rows={rowData4} columns={columnData4} sizeData={sizeData} colorData={""} />
+                    <Grid
+                        onHandleBlackCellsArray={handleBlackCellsArray}
+                        isClickable={true}
+                        rows={rowData4}
+                        columns={columnData4}
+                        sizeData={sizeData}
+                        colorData={""}
+                    />
                 </div>
                 <div className="flex justify-center items-center p-4 mr-8">
                     <ColRowPicker onColRowChange={handleColRowChange4} />

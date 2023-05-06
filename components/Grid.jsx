@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 
-const Grid = ({ rows, columns, sizeData, colorData, isClickable }) => {
+const Grid = ({ rows, columns, sizeData, colorData, isClickable, onHandleBlackCellsArray }) => {
     const [cellSize, setCellSize] = useState("medium");
     const [cellColors, setCellColors] = useState([]);
     const [blackCells, setBlackCells] = useState([]);
-
     useEffect(() => {
         // Letter Compare and returning the matching Colour
         const letterArray = [
@@ -37,7 +36,13 @@ const Grid = ({ rows, columns, sizeData, colorData, isClickable }) => {
             colors.push(result[0]);
         }
         setCellColors(colors);
-    }, [colorData]);
+
+        function handleBlackCellArray() {
+            onHandleBlackCellsArray(blackCells);
+        }
+
+        handleBlackCellArray()
+    }, [colorData,blackCells,onHandleBlackCellsArray]);
 
     const handleClick = (id) => {
         const [row, col] = id.split("-");
@@ -86,14 +91,13 @@ const Grid = ({ rows, columns, sizeData, colorData, isClickable }) => {
             </div>
         );
     }
-
-    const blackCellsArray = []
-    // console.log("blackcells", blackCells);
-    for(let i=0; i<blackCells.length;i++){
-        blackCellsArray.push([blackCells[i].col, rows - blackCells[i].row - 1])
-    }
-    console.log(blackCellsArray);
     
+    // const blackCellsArray = [];
+    // console.log("blackcells", blackCells);
+    // for (let i = 0; i < blackCells.length; i++) {
+    //     blackCellsArray.push([blackCells[i].col, rows - blackCells[i].row - 1]);
+    // }
+    // handleBlackCellArray(blackCellsArray);
 
     return (
         <div className="mt-4">
