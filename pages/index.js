@@ -1,6 +1,6 @@
 import Grid from "@/components/Grid";
 import LetterPicker from "@/components/LetterPicker";
-import RowPicker from "@/components/RowPicker";
+
 import SizePicker from "@/components/SizePicker";
 import axios from "axios";
 import Image from "next/image";
@@ -90,18 +90,17 @@ export default function Home() {
         });
     //console.log(result[0]);
 
-    //Callback function
+    //Callback function for Canvas Size
     function handleSizeChange(newSize) {
         setSizeData(newSize)
     }
 
+    //Callback function for Columns & Rows Size
     function handleColRowChange(newSize) {
         setColumnData(newSize[0])
         setRowData(newSize[1])
     }
 
-    console.log('COL DATA', columnData)
-    console.log('ROW DATA', rowData)
     return (
         <div className="my-4 p-2">
             <h1 className="font-bold bg-blue-400 p-2 rounded">TASK 1</h1>
