@@ -24,7 +24,7 @@ const Grid = ({ rows, columns, sizeData, colorData, isClickable }) => {
             { letter: "E", color: "#ffffff" },
         ];
 
-        const newColorData = colorData.replace(/\s/g, "");
+        const newColorData = colorData.replace(/\s/g, ""); //Removes whitespace
         const colors = [];
         for (let i = 0; i < newColorData.length; i++) {
             const result = letterArray
@@ -53,6 +53,12 @@ const Grid = ({ rows, columns, sizeData, colorData, isClickable }) => {
         setCellSize(event.target.value);
     };
 
+    function clickableHandler() {
+        if (isClickable) {
+            handleClick(id);
+        }
+    }
+
     const cellClasses = {
         small: "w-2 h-2",
         medium: "w-8 h-8",
@@ -69,7 +75,7 @@ const Grid = ({ rows, columns, sizeData, colorData, isClickable }) => {
                 <div
                     className={`${cellClasses[sizeData]} border border-black`}
                     key={id}
-                    onClick={() => handleClick(id)}
+                    onClick={isClickable ? () => handleClick(id) : undefined}
                     style={{ backgroundColor: isBlack ? "#000000" : cellColors[i * columns + j] }}
                 ></div>
             );
@@ -81,7 +87,7 @@ const Grid = ({ rows, columns, sizeData, colorData, isClickable }) => {
         );
     }
 
-    console.log(blackCells);
+    console.log(cellColors);
     return (
         <div className="mt-4">
             <div className="flex flex-col">{grid}</div>

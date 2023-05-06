@@ -87,7 +87,7 @@ export default function Home() {
         setUniqueLetterData4(newUniqueLetter);
     }
 
-    console.log(uniqueLetterData4);
+    
     return (
         <div className="my-4 p-2 md:px-6 lg:px-14">
             <h1 className="font-semibold bg-red-500 p-2 rounded">TASK 1</h1>
@@ -107,7 +107,7 @@ export default function Home() {
                 </button>
             </div>
             {shapes.map((shape, i) => {
-                console.log("SHAPE CONTENT", shape.content);
+                
                 return (
                     <>
                         <div className="inline-block mx-2 text-center">
@@ -129,7 +129,7 @@ export default function Home() {
                 return (
                     <>
                         <div className="inline-block mx-2">
-                            <Grid key={i} rows={5} columns={5} sizeData={sizeData} colorData={rotation.content} />
+                            <Grid isClickable={false} key={i} rows={5} columns={5} sizeData={sizeData} colorData={rotation.content} />
                         </div>
                     </>
                 );
@@ -137,7 +137,7 @@ export default function Home() {
             <h1 className="font-semibold bg-[#4eb748] p-2 rounded my-4">TASK 4</h1>
             <div className="flex flex-col my-4">
                 <div className="flex justify-center items-center">
-                    <Grid rows={rowData4} columns={columnData4} sizeData={sizeData} colorData={""} />
+                    <Grid isClickable={true} rows={rowData4} columns={columnData4} sizeData={sizeData} colorData={""} />
                 </div>
                 <div className="flex justify-center items-center p-4 mr-8">
                     <ColRowPicker onColRowChange={handleColRowChange4} />

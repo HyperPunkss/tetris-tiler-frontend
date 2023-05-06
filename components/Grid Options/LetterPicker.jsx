@@ -32,7 +32,7 @@ function LetterPicker() {
         <div className="grid grid-cols-3 my-4 mr-36">
             {images.map((image) => (
                 <>
-                    <div className="flex justify-center items-center">
+                    <div key={image.id} className="flex justify-center items-center">
                         <Image key={image.id} src={image.src} alt={image.alt} width={50} height={50} />
                         <input className="ml-4" type="checkbox" name="letter-picker" id={image.id} />
                     </div>
