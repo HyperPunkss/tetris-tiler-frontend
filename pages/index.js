@@ -26,7 +26,7 @@ export default function Home() {
     //TASK 3 
     const [rotations, setRotations] = useState([])
     async function task3apiCall() {
-      await axios.get("http://matsaki95.ddns.net:8900/api/v1/a3-task/?letter=f").then((response) => {
+      await axios.get("http://matsaki95.ddns.net:8900/api/v1/a3-task/?letter=" + uniqueLetterData).then((response) => {
         setRotations(response.data)
         console.log(response.data);
       })
