@@ -19,8 +19,8 @@ export default function Home() {
   ]
   const testObjJSON = JSON.stringify(testObj)
 
-  function task2apiCall(){
-    // axios.get('/url/user').then((response) => {
+  const task2apiCall = async() =>{
+    // await axios.get('/url/user').then((response) => {
     //   setShapes(JSON.parse(response.data))
     // })
     setShapes(JSON.parse(testObjJSON))
@@ -52,6 +52,7 @@ export default function Home() {
             const data = response.data;
         },
         (error) => {
+          console.log(error);
         }
     );
   }
