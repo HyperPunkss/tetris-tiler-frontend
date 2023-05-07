@@ -20,7 +20,7 @@ function HeaderBar({ links }) {
                 <Link href="/">
                     <h1 className=" text-[20px] lg:text-[30px]">Tile Project</h1>
                 </Link>
-                <ul className="hidden gap-5 md:gap-[11px] lg:gap-8 md:flex">
+                <ul className="hidden gap-5 md:gap-[14px] lg:gap-8 md:flex">
                     {links.map((link) => (
                         <li key={link.target} className="pt-1 text-[15px] font-semibold text-white z-20 ">
                             <Link href={`/#${link.target}`} className="text-white hover:text-[#c591db]">
@@ -63,7 +63,7 @@ function HeaderBar({ links }) {
                                         setHamburgerMenuIsOpen(false);
                                     }}
                                 >
-                                    <h1 className="text-[40px] font-semibold">{link.label}</h1>
+                                    <h1 className="text-[20px] font-semibold">{link.label}</h1>
                                 </Link>
                             </li>
                         ))}

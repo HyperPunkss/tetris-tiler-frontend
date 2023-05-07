@@ -51,6 +51,7 @@ function LetterPicker({ onLettersChange }) {
                 <>
                     <div key={image.id} className="flex justify-center items-center">
                         <Image key={image.id} src={image.src} alt={image.alt} width={50} height={50} />
+                        
                         <input
                             className="hover:cursor-pointer ml-4"
                             type="checkbox"
