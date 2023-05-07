@@ -54,7 +54,7 @@ function HeaderBar({ links }) {
                 >
                     <ul>
                         {links.map((link) => (
-                            <li key={link.target} className="pt-4  font-semibold text-white z-20 pl-4">
+                            <li key={link.target} className="pt-4 text-[15px] font-semibold text-white z-20 pl-4">
                                 <Link
                                     href={`/#${link.target}`}
                                     className="text-white hover:text-[#c591db]"
@@ -63,7 +63,7 @@ function HeaderBar({ links }) {
                                         setHamburgerMenuIsOpen(false);
                                     }}
                                 >
-                                    <h1 className="text-[30px] font-semibold">{link.label}</h1>
+                                    <h1 className="text-[20px] font-semibold">{link.label}</h1>
                                 </Link>
                             </li>
                         ))}

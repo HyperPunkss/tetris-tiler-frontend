@@ -45,8 +45,7 @@ export default function Home({ links }) {
 
     useEffect(() => {
         console.log(tasksCompleted);
-    }, [tasksCompleted])
-
+    }, [tasksCompleted]);
 
     async function task2apiCall() {
         await axios.get("http://matsaki95.ddns.net:8900/api/v1/a2-task").then((response) => {
@@ -266,7 +265,6 @@ export default function Home({ links }) {
         );
     });
 
-    
     return (
         <div id="task1" className="my-4 p-2 mt-20 md:px-6 lg:px-14">
             <div className="flex justify-between items-start bg-red-500 p-2 rounded my-4">
@@ -497,9 +495,7 @@ export default function Home({ links }) {
                     </>
                 ) : (
                     <>
-                        <div>
-                            test
-                        </div>
+                        <div>test</div>
                     </>
                 )}
             </div>

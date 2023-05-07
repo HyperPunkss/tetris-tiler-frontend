@@ -28,13 +28,31 @@ const images = [
 ];
 
 function LetterPicker() {
+    const [selectedLetters, setSelectedLetters] = useState([]);
+
+    const handleLetterSelect = (event) => {
+        const letterId = event.target.id;
+        if (selectedLetters.includes(letterId)) {
+            setSelectedLetters(selectedLetters.filter((letter) => letter !== letterId));
+        } else {
+            setSelectedLetters([...selectedLetters, letterId]);
+        }
+    };
+
+    console.log(selectedLetters);
     return (
         <div className="grid grid-cols-3 my-4 mr-36">
             {images.map((image) => (
                 <>
                     <div key={image.id} className="flex justify-center items-center">
                         <Image key={image.id} src={image.src} alt={image.alt} width={50} height={50} />
-                        <input className="hover:cursor-pointer ml-4" type="checkbox" name="letter-picker" id={image.id} />
+                        <input
+                            className="hover:cursor-pointer ml-4"
+                            type="checkbox"
+                            name="letter-picker"
+                            onChange={handleLetterSelect}
+                            id={image.id}
+                        />
                     </div>
                 </>
             ))}
