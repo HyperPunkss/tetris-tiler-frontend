@@ -46,7 +46,7 @@ function LetterPicker({ onLettersChange }) {
 
     
     return (
-        <div className="grid grid-cols-3 my-4 mr-36">
+        <div className="grid grid-cols-3 my-4 mr-5">
             {images.map((image) => (
                 <>
                     <div key={image.id} className="flex justify-center items-center">

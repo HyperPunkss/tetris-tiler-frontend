@@ -9,7 +9,7 @@ function ColRowPicker({ onColRowChange }) {
     }, [colValue, rowValue,onColRowChange]);
 
     function handleValueChange(event) {
-        event.preventDefault();
+        
     }
 
     return (
