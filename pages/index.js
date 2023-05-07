@@ -9,7 +9,6 @@ import LetterPickerUnique from "@/components/Grid Options/LetterPickerUnique";
 import { loadGetInitialProps } from "next/dist/shared/lib/utils";
 import RotationButton from "@/components/Grid Options/RotationButton";
 import FlipButton from "@/components/Grid Options/FlipButton";
-import TasksTable from "@/components/TasksTable";
 
 export default function Home({ links }) {
     const [showAllButton, setShowAllButton] = useState(false);
@@ -498,7 +497,9 @@ export default function Home({ links }) {
                     </>
                 ) : (
                     <>
-                        <TasksTable />
+                        <div>
+                            test
+                        </div>
                     </>
                 )}
             </div>
