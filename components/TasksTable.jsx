@@ -16,7 +16,7 @@ function TasksTable() {
                     <tbody>
                         <tr className="border-b bg-[#b3b2b1] ">
                             <th scope="row" className="px-6 py-4 whitespace-nowrap text-black font-medium">
-                                Apple MacBook Pro 17"
+                                Apple MacBook Pro 17
                             </th>
                             <td className="px-6 py-4 text-black font-semibold">Silver</td>
                         </tr>
