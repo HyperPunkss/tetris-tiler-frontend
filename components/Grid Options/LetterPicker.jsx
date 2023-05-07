@@ -11,6 +11,7 @@ import wImage from "../../styles/icons/w-letter.png";
 import xImage from "../../styles/icons/x-letter.png";
 import yImage from "../../styles/icons/y-letter.png";
 import zImage from "../../styles/icons/z-letter.png";
+import { useEffect, useState } from "react";
 
 const images = [
     { src: fImage, alt: "f-letter", id: "f" },
@@ -27,14 +28,36 @@ const images = [
     { src: zImage, alt: "z-letter", id: "z" },
 ];
 
-function LetterPicker() {
+function LetterPicker({ onLettersChange }) {
+    const [selectedLetters, setSelectedLetters] = useState([]);
+
+    useEffect(() => {
+        onLettersChange(selectedLetters);
+    }, [onLettersChange,selectedLetters]);
+
+    const handleLetterSelect = (event) => {
+        const letterId = event.target.id;
+        if (selectedLetters.includes(letterId)) {
+            setSelectedLetters(selectedLetters.filter((letter) => letter !== letterId));
+        } else {
+            setSelectedLetters([...selectedLetters, letterId]);
+        }
+    };
+
+    
     return (
         <div className="grid grid-cols-3 my-4 mr-36">
             {images.map((image) => (
                 <>
                     <div key={image.id} className="flex justify-center items-center">
                         <Image key={image.id} src={image.src} alt={image.alt} width={50} height={50} />
-                        <input className="hover:cursor-pointer ml-4" type="checkbox" name="letter-picker" id={image.id} />
+                        <input
+                            className="hover:cursor-pointer ml-4"
+                            type="checkbox"
+                            name="letter-picker"
+                            onChange={handleLetterSelect}
+                            id={image.id}
+                        />
                     </div>
                 </>
             ))}

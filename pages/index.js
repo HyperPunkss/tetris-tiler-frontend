@@ -18,9 +18,11 @@ export default function Home({ links }) {
     const [columnData1, setColumnData1] = useState(5);
     const [columnData4, setColumnData4] = useState(8);
     const [columnData5, setColumnData5] = useState(5);
+    const [columnData7, setColumnData7] = useState(5);
     const [rowData1, setRowData1] = useState(5);
     const [rowData4, setRowData4] = useState(8);
     const [rowData5, setRowData5] = useState(5);
+    const [rowData7, setRowData7] = useState(5);
     const [uniqueLetterData3, setUniqueLetterData3] = useState("");
     const [uniqueLetterData4, setUniqueLetterData4] = useState("");
     const [blackCellsArray, setBlackCellsArray] = useState([]);
@@ -30,6 +32,7 @@ export default function Home({ links }) {
     const [flipValue4, setFlipValue4] = useState(false);
     const [showAll, setShowAll] = useState(false);
     const [task5content, setTask5Content] = useState("");
+    const [task7content, setTask7content] = useState("");
     const [task8content, setTask8content] = useState("");
     const [task5filled, setTask5filled] = useState(0);
     const [task5unfilled, setTask5unfilled] = useState(0);
@@ -38,16 +41,16 @@ export default function Home({ links }) {
     const [task3time, setTask3time] = useState(0);
     const [task4time, setTask4time] = useState(0);
     const [task5time, setTask5time] = useState(0);
+    const [task7time, setTask7time] = useState(0);
     const [task8time, setTask8time] = useState(0);
-
+    const [selectLetters7,setSelectLetters7] = useState()
     const [tasksCompleted, setTasksCompleted] = useState([]);
     //TASK 2 - Getting all the shape information from the API
     const [shapes, setShapes] = useState([]);
 
     useEffect(() => {
         console.log(tasksCompleted);
-    }, [tasksCompleted])
-
+    }, [tasksCompleted]);
 
     async function task2apiCall() {
         await axios.get("http://matsaki95.ddns.net:8900/api/v1/a2-task").then((response) => {
@@ -60,15 +63,17 @@ export default function Home({ links }) {
     const [rotations, setRotations] = useState([]);
 
     async function task3apiCall() {
-        await axios.get("http://matsaki95.ddns.net:8900/api/v1/a3-task/?letter=" + uniqueLetterData3).then((response) => {
-            setTask3time(response.data.pop());
-            setRotations(response.data);
-            setTasksCompleted((prev) => {
-                const filteredTasks = prev.filter((task) => task.task !== "task3"); // filter out existing task3
-                const newTask = { task: "task3", time: task3time };
-                return [...filteredTasks, newTask]; // add the new task3
+        await axios
+            .get("http://matsaki95.ddns.net:8900/api/v1/a3-task/?letter=" + uniqueLetterData3)
+            .then((response) => {
+                setTask3time(response.data.pop());
+                setRotations(response.data);
+                setTasksCompleted((prev) => {
+                    const filteredTasks = prev.filter((task) => task.task !== "task3"); // filter out existing task3
+                    const newTask = { task: "task3", time: task3time };
+                    return [...filteredTasks, newTask]; // add the new task3
+                });
             });
-        });
     }
 
     //TASK 4
@@ -155,16 +160,49 @@ export default function Home({ links }) {
             });
     }
 
-    //TASK 8
-    // const [shapes, setShapes] = useState([]);
+    //TASK 7
+    function task7apiCall() {
 
+
+        let task7data = {
+            letter1: selectLetters7[0],
+            letter2: selectLetters7[1],
+            gridSizeX: rowData7,
+            gridSizeY: columnData7,
+        };
+
+        console.log(task7data);
+        let config = {
+            method: "post",
+            maxBodyLength: Infinity,
+            url: "http://matsaki95.ddns.net:8900/api/v1/a7-task",
+            headers: {
+                Key: "Content-Type",
+                Value: "application/json",
+                "Content-Type": "application/json",
+            },
+            data: task7data,
+        };
+        axios
+            .request(config)
+            .then((response) => {
+                // console.log(JSON.stringify(response.data));
+                setTask7content(response.data["grid"])
+                setTask7time(response.data["timeTaken"])
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+    //TASK 8
+    
     function task8apiCall() {
         axios
             .get("http://matsaki95.ddns.net:8900/api/v1/a8-task")
             .then((response) => {
                 const jsonArray = response.data;
                 const firstObject = jsonArray[0];
-                console.log(firstObject);
 
                 setTask8content(firstObject.grid);
                 setPerimeterTask8(firstObject.perimeter);
@@ -223,6 +261,11 @@ export default function Home({ links }) {
         setRowData5(newSize[1]);
     }
 
+    function handleColRowChange7(newSize) {
+        setColumnData7(newSize[0]);
+        setRowData7(newSize[1]);
+    }
+
     function handleUniqueLetterChange3(newUniqueLetter) {
         setUniqueLetterData3(newUniqueLetter);
     }
@@ -250,6 +293,11 @@ export default function Home({ links }) {
     function handleFlipChange(newFlip) {
         setFlipValue4(newFlip);
     }
+
+    function handleLettersChange7(newLetters){
+        setSelectLetters7(newLetters)
+    }
+
     //Show All Objects
     const objectsToRender = showAll ? allowedPositions : allowedPositions.slice(0, 3);
     const renderAllObjects = objectsToRender.map((allowedPosition, i) => {
@@ -267,7 +315,8 @@ export default function Home({ links }) {
         );
     });
 
-    
+    console.log(selectLetters7);
+
     return (
         <div id="task1" className="my-4 p-2 mt-20 md:px-6 lg:px-14">
             <div className="flex justify-between items-start bg-red-500 p-2 rounded my-4">
@@ -297,7 +346,10 @@ export default function Home({ links }) {
             </div>
             <div className="border-2 border-orange-200 pb-4">
                 <div className="flex justify-center items-center md:ml-4 lg:ml-8 my-4">
-                    <button className="hover:bg-orange-200 rounded bg-white p-2 my-2 border-2 border-black flex" onClick={task2apiCall}>
+                    <button
+                        className="hover:bg-orange-200 rounded bg-white p-2 my-2 border-2 border-black flex"
+                        onClick={task2apiCall}
+                    >
                         Generate all the shapes!
                     </button>
                 </div>
@@ -324,7 +376,10 @@ export default function Home({ links }) {
             </div>
             <div className="border-2 border-yellow-200 pb-4">
                 <div className="flex justify-center items-center md:ml-4 lg:ml-8 my-4">
-                    <button className="hover:bg-yellow-200 rounded bg-white p-2 my-2 border-2 border-black flex" onClick={task3apiCall}>
+                    <button
+                        className="hover:bg-yellow-200 rounded bg-white p-2 my-2 border-2 border-black flex"
+                        onClick={task3apiCall}
+                    >
                         Generate the Shape`s Rotations
                     </button>
                 </div>
@@ -435,7 +490,10 @@ export default function Home({ links }) {
             </div>
             <div className="flex justify-center items-center md:ml-4 lg:ml-8 my-4">
                 <div>
-                    <button className="rounded bg-white p-2 my-2 mr-8 lg:mr-12 border-2 border-black flex" onClick={task5apiCall}>
+                    <button
+                        className="rounded bg-white p-2 my-2 mr-8 lg:mr-12 border-2 border-black flex"
+                        onClick={task5apiCall}
+                    >
                         Generate A Random Shape Button
                     </button>
                 </div>
@@ -447,7 +505,10 @@ export default function Home({ links }) {
             <div>
                 <p className="font">We are gonna showcase the previous task`s shape in Plain Text</p>
                 {task5content.length === 0 ? (
-                    <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 mt-4 rounded relative" role="alert">
+                    <div
+                        className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 mt-4 rounded relative"
+                        role="alert"
+                    >
                         <strong className="font-bold">Warning! </strong>
                         <span className="block sm:inline">Please press the `Generate A Random Shape Button`</span>
                         <span className="absolute top-0 bottom-0 right-0 px-4 py-3"></span>
@@ -458,6 +519,35 @@ export default function Home({ links }) {
                     </div>
                 )}
             </div>
+            <div id="task7" className="flex justify-between items-start bg-[#d740ff] p-2 rounded my-4">
+                <h1 className="font-semibold">TASK 7</h1>
+                <h1 className="font-semibold">Time : {task7time}ms</h1>
+            </div>
+            <div>
+                <p>
+                    Please choose <b> Exactly 2 </b>of the options!
+                </p>
+                <LetterPicker onLettersChange={handleLettersChange7}/>
+            </div>
+            <div>
+                <ColRowPicker onColRowChange={handleColRowChange7} />
+            </div>
+            <button
+                className="rounded bg-white p-2 my-2 mr-8 lg:mr-12 border-2 border-black flex"
+                onClick={task7apiCall}
+            >
+                Generate the Group
+            </button>
+            <div className="flex justify-center items-center">
+                    <Grid
+                        onHandleBlackCellsArray={handleBlackCellsArray}
+                        isClickable={false}
+                        rows={rowData7}
+                        columns={columnData7}
+                        sizeData={sizeData}
+                        colorData={task7content}
+                    />
+                </div>
             <div id="task8" className="flex justify-between items-start bg-red-500 p-2 rounded my-4">
                 <h1 className="font-semibold">TASK 8</h1>
                 <h1 className="font-semibold">Time : {task8time}ms</h1>
@@ -485,14 +575,24 @@ export default function Home({ links }) {
             </div>
             <div>
                 <p>
-                    The Function has already been showing some of the times on the previous Headers, but we will show all the times here
-                    again.
+                    The Function has already been showing some of the times on the previous Headers, but we will show
+                    all the times here again.
                 </p>
-                {task2time === undefined || task3time === undefined || task4time === undefined || task5time === undefined ? (
+                {task2time === undefined ||
+                task3time === undefined ||
+                task4time === undefined ||
+                task5time === undefined ||
+                task7time === undefined || 
+                task8time === undefined? (
                     <>
-                        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 mt-4 rounded relative" role="alert">
+                        <div
+                            className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 mt-4 rounded relative"
+                            role="alert"
+                        >
                             <strong className="font-bold">Warning! </strong>
-                            <span className="block sm:inline">Please run all the tasks to be able to see each task time </span>
+                            <span className="block sm:inline">
+                                Please run all the tasks to be able to see each task time{" "}
+                            </span>
                             <span className="absolute top-0 bottom-0 right-0 px-4 py-3"></span>
                         </div>
                     </>
