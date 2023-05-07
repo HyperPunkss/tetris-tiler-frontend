@@ -49,12 +49,10 @@ export default function Home({ links }) {
     const [rotations, setRotations] = useState([]);
 
     async function task3apiCall() {
-        await axios
-            .get("http://matsaki95.ddns.net:8900/api/v1/a3-task/?letter=" + uniqueLetterData3)
-            .then((response) => {
-                setTask3time(response.data.pop());
-                setRotations(response.data);
-            });
+        await axios.get("http://matsaki95.ddns.net:8900/api/v1/a3-task/?letter=" + uniqueLetterData3).then((response) => {
+            setTask3time(response.data.pop());
+            setRotations(response.data);
+        });
     }
 
     //TASK 4
@@ -98,16 +96,16 @@ export default function Home({ links }) {
     }
 
     //TASK 5
-    function task5apiCall(){
-        const finalBlackCellsArray = []
+    function task5apiCall() {
+        const finalBlackCellsArray = [];
         for (let i = 0; i < blackCellsArray5.length; i++) {
             finalBlackCellsArray.push([blackCellsArray5[i].col, rowData5 - blackCellsArray5[i].row - 1]);
         }
         let task5data = JSON.stringify({
             gridSizeX: rowData5,
             gridSizeY: columnData5,
-            blackHoles: finalBlackCellsArray
-        })
+            blackHoles: finalBlackCellsArray,
+        });
         console.log(finalBlackCellsArray);
         // console.log(task5data);
         let config = {
@@ -125,10 +123,10 @@ export default function Home({ links }) {
         axios
             .request(config)
             .then((response) => {
-                console.log(JSON.stringify(response.data));
-                setTask5Content(response.data['grid'])
-                setTask5filled(response.data['filled'])
-                setTask5unfilled(response.data['unfilled'])
+                setTask5time(response.data["timeTaken"]);
+                setTask5Content(response.data["grid"]);
+                setTask5filled(response.data["filled"]);
+                setTask5unfilled(response.data["unfilled"]);
             })
             .catch((error) => {
                 console.log(error);
@@ -223,8 +221,10 @@ export default function Home({ links }) {
         );
     });
 
-    // console.log("SHOW ALL BUTTON", showAllButton);
-    // console.log("SHOWALL", showAll);
+    console.log("TASK2 TIME", task2time);
+    console.log("TASK3 TIME", task3time);
+    console.log("TASK4 TIME", task4time);
+    console.log("TASK5 TIME", task5time);
     return (
         <div id="task1" className="my-4 p-2 md:px-6 lg:px-14">
             <div className="flex justify-between items-start bg-red-500 p-2 rounded my-4">
@@ -256,10 +256,7 @@ export default function Home({ links }) {
             </div>
             <div className="border-2 border-orange-200">
                 <div className="flex justify-center items-center md:ml-4 lg:ml-8 my-4">
-                    <button
-                        className="hover:bg-orange-200 rounded bg-white p-2 my-2 border-2 border-black flex"
-                        onClick={task2apiCall}
-                    >
+                    <button className="hover:bg-orange-200 rounded bg-white p-2 my-2 border-2 border-black flex" onClick={task2apiCall}>
                         Generate all the shapes!
                     </button>
                 </div>
@@ -286,10 +283,7 @@ export default function Home({ links }) {
             </div>
             <div className="border-2 border-yellow-200 pb-4">
                 <div className="flex justify-center items-center md:ml-4 lg:ml-8 my-4">
-                    <button
-                        className="hover:bg-yellow-200 rounded bg-white p-2 my-2 border-2 border-black flex"
-                        onClick={task3apiCall}
-                    >
+                    <button className="hover:bg-yellow-200 rounded bg-white p-2 my-2 border-2 border-black flex" onClick={task3apiCall}>
                         Generate the Shape`s Rotations
                     </button>
                 </div>
@@ -371,10 +365,10 @@ export default function Home({ links }) {
                     )}
                 </div>
             </div>
-            
+
             <h1 className="font-semibold bg-blue-400 p-2 rounded my-4">TASK 5</h1>
             <div className="flex flex-col my-4">
-            <div className="flex justify-center items-center">
+                <div className="flex justify-center items-center">
                     <Grid
                         onHandleBlackCellsArray={handleBlackCellsArray5}
                         isClickable={true}
@@ -396,24 +390,51 @@ export default function Home({ links }) {
                     </div>
                 </div>
             </div>
-            <div className="md:ml-4 lg:ml-8 my-4">
-                    <button className="rounded bg-white p-2 my-2 border-2 border-black flex" onClick={task5apiCall}>
-                        Generate a Random Shape
+            <div className="flex justify-center items-center md:ml-4 lg:ml-8 my-4">
+                <div>
+                    <button className="rounded bg-white p-2 my-2 mr-8 lg:mr-12 border-2 border-black flex" onClick={task5apiCall}>
+                        Generate A Random Shape Button
                     </button>
                 </div>
-                <h1 className="font-semibold bg-blue-700 p-2 rounded my-4">TASK 6</h1>
-                <div>
-                    <p>We are gonna showcase the preious task`s shape in Plain Text</p>
-                    <p>{task5content}</p>
-                </div>
-                <h1 className="font-semibold bg-[#f89622] p-2 rounded my-4">TASK 9</h1>
-                <div>
-                    <p>The Function has already been showing some of the times on the previous Headers, but we will show all the times here again.</p>
-                    <p>Task 2 time: {task2time}ms</p>
-                    <p>Task 3 time: {task3time}ms</p>
-                    <p>Task 4 time: {task4time}ms</p>
-                    <p>Task 5 time: {task5time}ms</p>
-                </div>
+            </div>
+            <h1 className="font-semibold bg-blue-700 p-2 rounded my-4">TASK 6</h1>
+            <div>
+                <p className="font">We are gonna showcase the previous task`s shape in Plain Text</p>
+                {task5content.length === 0 ? (
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 mt-4 rounded relative" role="alert">
+                        <strong class="font-bold">Warning! </strong>
+                        <span class="block sm:inline">Please press the `Generate A Random Shape Button`</span>
+                        <span class="absolute top-0 bottom-0 right-0 px-4 py-3"></span>
+                    </div>
+                ) : (
+                    <div className="bg-gray-200 text-center p-2 mx-auto w-[300px] mt-2">
+                        <h1 className="font-semibold">{task5content}</h1>
+                    </div>
+                )}
+            </div>
+            <h1 className="font-semibold bg-[#f89622] p-2 rounded my-4">TASK 9</h1>
+            <div>
+                <p>
+                    The Function has already been showing some of the times on the previous Headers, but we will show all the times here
+                    again.
+                </p>
+                {task2time === undefined || task3time === undefined || task4time === undefined || task5time === undefined ? (
+                    <>
+                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 mt-4 rounded relative" role="alert">
+                            <strong class="font-bold">Warning! </strong>
+                            <span class="block sm:inline">Please run all the tasks to be able to see each task time </span>
+                            <span class="absolute top-0 bottom-0 right-0 px-4 py-3"></span>
+                        </div>
+                    </>
+                ) : (
+                    <>
+                        <p>Task 2 time: {task2time}ms</p>
+                        <p>Task 3 time: {task3time}ms</p>
+                        <p>Task 4 time: {task4time}ms</p>
+                        <p>Task 5 time: {task5time}ms</p>
+                    </>
+                )}
+            </div>
         </div>
     );
 }
