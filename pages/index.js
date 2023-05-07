@@ -236,8 +236,8 @@ export default function Home() {
             finalBlackCellsArray.push([blackCellsArray10[i].col, rowData10 - blackCellsArray10[i].row - 1]);
         }
         let task10data = JSON.stringify({
-            gridSizeX: rowData10,
-            gridSizeY: columnData10,
+            gridSizeX: columnData10,
+            gridSizeY: rowData10,
             allowFlips: flipValue10,
             allowRotations: rotationValue10,
             blackHoles: finalBlackCellsArray,
@@ -700,12 +700,14 @@ export default function Home() {
                         </>
                     ) : (
                         <>
-                            <p>Task 2 time : {task2time}ms</p>
-                            <p>Task 3 time : {task3time}ms</p>
-                            <p>Task 4 time : {task4time}ms</p>
-                            <p>Task 5 time : {task5time}ms</p>
-                            <p>Task 7 time : {task7time}ms</p>
-                            <p>Task 8 time : {task8time}ms</p>
+                            <div className="bg-gray-200 border-2 border-y-red-800 border-x-purple-800 p-4 mt-4 rounded-lg">
+                                <p className="font-semibold">Task 2 time : {task2time}ms</p>
+                                <p className="font-semibold">Task 3 time : {task3time}ms</p>
+                                <p className="font-semibold">Task 4 time : {task4time}ms</p>
+                                <p className="font-semibold">Task 5 time : {task5time}ms</p>
+                                <p className="font-semibold">Task 7 time : {task7time}ms</p>
+                                <p className="font-semibold">Task 8 time : {task8time}ms</p>
+                            </div>
                         </>
                     )}
                 </div>
