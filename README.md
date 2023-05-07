@@ -33,6 +33,7 @@ If you want to check out the implemetation of the code, check out our Live Demo.
 
 ## Live demo
 Find us at : https://tetris-tiler-frontend.vercel.app/
+
 For the live demo to work you will need to disable Insecure content from the site settings. This occurs because our backend app from which next.js calls the api's of the functions is set up to a non https server.
 
 ## License
