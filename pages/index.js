@@ -780,6 +780,14 @@ export default function Home() {
                     </div>
                 </div>
             </div>
+            <div className="flex justify-between items-start bg-green-400 p-2 rounded my-4">
+                <h1 className="font-semibold">TASK B-10</h1>
+            </div>
+            <div>
+                <p>This are the letter that when put together, they make a large P</p>
+                <p className="font-semibold">1. BBBBB BUUUY BUFUY BFFYY BPFFY BPPBB BPPBB</p>
+                <p className="font-semibold">2. BBBBB BYVVV BYYFV BYFFV BYPFF BPPBB BPPBB </p>
+            </div>
         </div>
     );
 }
