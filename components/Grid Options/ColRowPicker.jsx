@@ -13,7 +13,7 @@ function ColRowPicker({ onColRowChange }) {
     }
 
     return (
-        <div className="my-4">
+        <div className="">
             <div className="flex">
                 <h1 className="text-center font-semibold mr-[2px] mb-2 text-sm ml-[10px]">Columns</h1>
                 <h1 className="text-center font-semibold mr-[2px] mb-2 text-sm ml-[48px]">Rows</h1>

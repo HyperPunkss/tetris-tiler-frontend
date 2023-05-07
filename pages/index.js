@@ -10,7 +10,8 @@ import { loadGetInitialProps } from "next/dist/shared/lib/utils";
 import RotationButton from "@/components/Grid Options/RotationButton";
 import FlipButton from "@/components/Grid Options/FlipButton";
 
-export default function Home({ links }) {
+export default function Home() {
+    const [screenWidth, setScreenWidth] = useState(0);
     const [showAllButton, setShowAllButton] = useState(false);
     const [showLessButton, setShowLessButton] = useState(false);
     const [sizeData, setSizeData] = useState("");
@@ -45,6 +46,16 @@ export default function Home({ links }) {
 
     useEffect(() => {
         console.log(tasksCompleted);
+
+        function handleResize() {
+            setScreenWidth(window.innerWidth);
+        }
+
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
     }, [tasksCompleted]);
 
     async function task2apiCall() {
@@ -265,6 +276,7 @@ export default function Home({ links }) {
         );
     });
 
+    console.log("SCREEN SIZE", screenWidth);
     return (
         <div id="task1" className="my-4 p-2 mt-20 md:px-6 lg:px-14">
             <div className="flex justify-between items-start bg-red-500 p-2 rounded my-4">
@@ -363,17 +375,32 @@ export default function Home({ links }) {
                             colorData={""}
                         />
                     </div>
-                    <div className="flex justify-center items-center mr-10 mt-4">
-                        <div>
-                            <RotationButton onRotationChange={handleRotationChange} />
-                        </div>
-                        <div>
-                            <FlipButton onFlipChange={handleFlipChange} />
-                        </div>
-                        <div className="ml-[14px]">
-                            <ColRowPicker onColRowChange={handleColRowChange4} />
-                        </div>
-                    </div>
+                    {screenWidth < 465 ? (
+                        <>
+                            <div className="flex justify-center items-center">
+                                <div>
+                                    <RotationButton onRotationChange={handleRotationChange} />
+                                </div>
+                                <div>
+                                    <FlipButton onFlipChange={handleFlipChange} />
+                                </div>
+                            </div>
+                            <div className="flex justify-center items-center">
+                                <div className="">
+                                    <ColRowPicker onColRowChange={handleColRowChange4} />
+                                </div>
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            <div className="flex justify-center items-center">
+                                <RotationButton onRotationChange={handleRotationChange} />
+                                <FlipButton onFlipChange={handleFlipChange} />
+                                <ColRowPicker onColRowChange={handleColRowChange4} />
+                            </div>
+                        </>
+                    )}
+
                     <div>
                         <LetterPickerUnique onUniqueLetterChange={handleUniqueLetterChange4} />
                     </div>

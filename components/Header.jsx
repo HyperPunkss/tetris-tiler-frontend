@@ -16,15 +16,13 @@ function HeaderBar({ links }) {
 
     return (
         <div className="fixed left-0 top-0 w-full ease-in duration-300 z-50 h-[85px] custom-img-dark">
-            <div className="max-w-[1240px] m-auto flex justify-between items-center p-8 text-white md:p-6">
-                <Link href="/">
-                    <h1 className=" text-[20px] lg:text-[30px]">Tile Project</h1>
-                </Link>
+            <div className="max-w-[1240px] flex justify-between items-center p-8 text-white md:p-6">
+                <h1 className="text-[20px] lg:text-[30px]">Tile Project</h1>
                 <ul className="hidden gap-5 md:gap-[14px] lg:gap-8 md:flex">
                     {links.map((link) => (
                         <li key={link.target} className="pt-1 text-[15px] font-semibold text-white z-20 ">
                             <Link href={`/#${link.target}`} className="text-white hover:text-[#c591db]">
-                                <h1 className="text-[18px]">{link.label}</h1>
+                                <h1 className="text-[16px] md:text-[16px]">{link.label}</h1>
                             </Link>
                         </li>
                     ))}
