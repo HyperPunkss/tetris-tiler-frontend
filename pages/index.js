@@ -13,9 +13,9 @@ import FlipButton from "@/components/Grid Options/FlipButton";
 export default function Home() {
     const [screenWidth, setScreenWidth] = useState(0);
     const [showAllButton, setShowAllButton] = useState(false);
-    const [showAllButton10, setShowAllButton10] = useState(false)
+    const [showAllButton10, setShowAllButton10] = useState(false);
     const [showLessButton, setShowLessButton] = useState(false);
-    const [showLessButton10, setShowLessButton10] =useState(false)
+    const [showLessButton10, setShowLessButton10] = useState(false);
     const [sizeData, setSizeData] = useState("");
     const [columnData1, setColumnData1] = useState(5);
     const [columnData4, setColumnData4] = useState(8);
@@ -30,16 +30,16 @@ export default function Home() {
     const [uniqueLetterData3, setUniqueLetterData3] = useState("");
     const [uniqueLetterData4, setUniqueLetterData4] = useState("");
     const [blackCellsArray, setBlackCellsArray] = useState([]);
-    const [blackCellsArray1, setBlackCellsArray1] = useState([])
+    const [blackCellsArray1, setBlackCellsArray1] = useState([]);
     const [blackCellsArray4, setBlackCellsArray4] = useState([]);
     const [blackCellsArray5, setBlackCellsArray5] = useState([]);
     const [blackCellsArray10, setBlackCellsArray10] = useState([]);
     const [rotationValue4, setRotationValue4] = useState(false);
-    const [rotationValue10, setRotationValue10] = useState(false)
+    const [rotationValue10, setRotationValue10] = useState(false);
     const [flipValue4, setFlipValue4] = useState(false);
-    const [flipValue10, setFlipValue10] = useState(false)
+    const [flipValue10, setFlipValue10] = useState(false);
     const [showAll, setShowAll] = useState(false);
-    const [showAll10, setShowAll10] = useState(false)
+    const [showAll10, setShowAll10] = useState(false);
     const [task5content, setTask5Content] = useState("");
     const [task7content, setTask7content] = useState("");
     const [task8content, setTask8content] = useState("");
@@ -60,8 +60,6 @@ export default function Home() {
     const [shapes, setShapes] = useState([]);
 
     useEffect(() => {
-        console.log(tasksCompleted);
-
         function handleResize() {
             setScreenWidth(window.innerWidth);
         }
@@ -231,40 +229,44 @@ export default function Home() {
     }
 
     //TASK 10 - Generating Data and Sending them to the API with Axios
-    const [allowedPositions10, setAllowedPositions10] = useState([])
+    const [allowedPositions10, setAllowedPositions10] = useState([]);
     function task10apiCall() {
         const finalBlackCellsArray = [];
         for (let i = 0; i < blackCellsArray10.length; i++) {
             finalBlackCellsArray.push([blackCellsArray10[i].col, rowData10 - blackCellsArray10[i].row - 1]);
         }
         let task10data = JSON.stringify({
-            "gridSizeX": rowData10,
-            "gridSizeY": columnData10,
-            "allowFlips": flipValue10,
-            "allowRotations": rotationValue10,
-            "blackHoles": finalBlackCellsArray,
-            "letters": selectLetters10
-          });
-          console.log(task10data);
-     
-          let config = {
-            method: 'post',
+            gridSizeX: rowData10,
+            gridSizeY: columnData10,
+            allowFlips: flipValue10,
+            allowRotations: rotationValue10,
+            blackHoles: finalBlackCellsArray,
+            letters: selectLetters10,
+        });
+        console.log(task10data);
+
+        let config = {
+            method: "post",
             maxBodyLength: Infinity,
-            url: 'http://matsaki95.ddns.net:8900/api/v1/a10-task',
-            headers: { 
-              'Key': 'Content-Type', 
-              'Value': 'application/json', 
-              'Content-Type': 'application/json'
+            url: "http://matsaki95.ddns.net:8900/api/v1/a10-task",
+            headers: {
+                Key: "Content-Type",
+                Value: "application/json",
+                "Content-Type": "application/json",
             },
-            data : task10data
-          }
-          axios.request(config)
-          .then((response) => {
-            console.log(JSON.stringify(response.data));
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+            data: task10data,
+        };
+        axios
+            .request(config)
+            .then((response) => {
+                console.log(JSON.stringify(response.data));
+                setTask10time(response.data.pop());
+                console.log(task10time);
+                setAllowedPositions10(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     //Callback function
@@ -305,8 +307,8 @@ export default function Home() {
         setBlackCellsArray(blackCellsArray);
     }
 
-    function handleBlackCellsArray1(blackCellsArray){
-        setBlackCellsArray1(blackCellsArray)
+    function handleBlackCellsArray1(blackCellsArray) {
+        setBlackCellsArray1(blackCellsArray);
     }
 
     function handleBlackCellsArray4(blackCellsArray) {
@@ -321,16 +323,16 @@ export default function Home() {
         setRotationValue4(newRotation);
     }
 
-    function handleRotationChange10(newRotation){
-        setRotationValue10(newRotation)
+    function handleRotationChange10(newRotation) {
+        setRotationValue10(newRotation);
     }
 
     function handleFlipChange(newFlip) {
         setFlipValue4(newFlip);
     }
 
-    function handleFlipChange10(newFlip){
-        setFlipValue10(newFlip)
+    function handleFlipChange10(newFlip) {
+        setFlipValue10(newFlip);
     }
 
     function handleLettersChange7(newLetters) {
@@ -352,7 +354,7 @@ export default function Home() {
 
     //Show All Objects
     const objectsToRender = showAll ? allowedPositions : allowedPositions.slice(0, 3);
-    const objectsToRender10 = showAll10 ? allowedPositions10 : allowedPositions10.slice(0,3) 
+    const objectsToRender10 = showAll10 ? allowedPositions10 : allowedPositions10.slice(0, 3);
     const renderAllObjects = objectsToRender.map((allowedPosition, i) => {
         return (
             <div className="inline-block mx-2" key={i}>
@@ -367,7 +369,7 @@ export default function Home() {
             </div>
         );
     });
-    const renderAllObjects10 = objectsToRender10.map((allowedPosition10, i)=>{
+    const renderAllObjects10 = objectsToRender10.map((allowedPosition10, i) => {
         return (
             <div className="inline-block mx-2" key={i}>
                 <Grid
@@ -379,9 +381,10 @@ export default function Home() {
                     colorData={allowedPosition10}
                 />
             </div>
-        )
-    })
+        );
+    });
 
+    console.log(screenWidth);
     return (
         <div className="my-4 p-2 mt-20 md:px-6 lg:px-14">
             <div id="task1" className="flex justify-between items-start bg-red-500 p-2 rounded my-4">
@@ -480,7 +483,7 @@ export default function Home() {
                             colorData={""}
                         />
                     </div>
-                    {screenWidth < 465 ? (
+                    {screenWidth < 428 ? (
                         <>
                             <div className="flex justify-center items-center">
                                 <div>
@@ -491,7 +494,7 @@ export default function Home() {
                                 </div>
                             </div>
                             <div className="flex justify-center items-center">
-                                <div className="">
+                                <div>
                                     <ColRowPicker onColRowChange={handleColRowChange4} />
                                 </div>
                             </div>
@@ -620,19 +623,37 @@ export default function Home() {
                     </div>
                 </div>
                 <LetterPicker onLettersChange={handleLettersChange7} />
-                <div className=" flex justify-center items-center">
-                    <div>
-                        <ColRowPicker onColRowChange={handleColRowChange7} />
-                    </div>
-                    <div className="">
-                        <button
-                            className="hover:bg-[#e285fc] mt-7 mx-6 rounded bg-white p-2 mr-8 lg:mr-12 border-2 border-black"
-                            onClick={task7apiCall}
-                        >
-                            Generate the Group
-                        </button>
-                    </div>
-                </div>
+                {screenWidth < 428 ? (
+                    <>
+                        <div className="flex justify-center items-center">
+                            <div>
+                                <ColRowPicker onColRowChange={handleColRowChange7} />
+                                <button
+                                    className="hover:bg-[#e285fc] mt-7 ml-2 rounded bg-white p-2 mr-8 lg:mr-12 border-2 border-black"
+                                    onClick={task7apiCall}
+                                >
+                                    Generate the Group
+                                </button>
+                            </div>
+                        </div>
+                    </>
+                ) : (
+                    <>
+                        <div className=" flex justify-center items-center">
+                            <div>
+                                <ColRowPicker onColRowChange={handleColRowChange7} />
+                            </div>
+                            <div className="">
+                                <button
+                                    className="hover:bg-[#e285fc] mt-7 mx-6 rounded bg-white p-2 mr-8 lg:mr-12 border-2 border-black"
+                                    onClick={task7apiCall}
+                                >
+                                    Generate the Group
+                                </button>
+                            </div>
+                        </div>
+                    </>
+                )}
             </div>
 
             <div id="task8" className="flex justify-between items-start bg-red-500 p-2 rounded my-4">
@@ -650,10 +671,10 @@ export default function Home() {
                         colorData={task8content}
                     />
                 </div>
-                <div>
+                <div className="flex justify-center items-center mt-2">
                     <p>Perimeter = {perimeterTask8}</p>
                 </div>
-                <div className="md:ml-4 lg:ml-8 my-4">
+                <div className="flex justify-center items-center md:ml-4 lg:ml-8 my-4">
                     <button className="hover:bg-red-200 rounded bg-white p-2 my-2 border-2 border-black flex" onClick={task8apiCall}>
                         Generate a shape and Calculate the Perimeter
                     </button>
@@ -702,21 +723,34 @@ export default function Home() {
                         rows={rowData10}
                         columns={columnData10}
                         sizeData={sizeData}
-                        colorData={task8content}
+                        colorData={""}
                     />
-
-                    <div>
-                        <div>
-                            <div>
+                    {screenWidth < 428 ? (
+                        <>
+                            <div className="flex justify-center items-center">
+                                <div>
+                                    <RotationButton onRotationChange={handleRotationChange10} />
+                                </div>
+                                <div>
+                                    <FlipButton onFlipChange={handleFlipChange10} />
+                                </div>
+                            </div>
+                            <div className="flex justify-center items-center">
+                                <div>
+                                    <ColRowPicker onColRowChange={handleColRowChange10} />
+                                </div>
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            <div className="flex justify-center items-center">
                                 <RotationButton onRotationChange={handleRotationChange10} />
-                            </div>
-                            <div>
                                 <FlipButton onFlipChange={handleFlipChange10} />
+                                <ColRowPicker onColRowChange={handleColRowChange10} />
                             </div>
-                        </div>
-                        <div className="my-4 ml-6">
-                            <ColRowPicker onColRowChange={handleColRowChange10} />
-                        </div>
+                        </>
+                    )}
+                    <div>
                         <div>
                             <LetterPicker onLettersChange={handleLettersChange10} />
                         </div>
@@ -728,22 +762,22 @@ export default function Home() {
                                 Generate the Unique Solutions
                             </button>
                         </div>
+                        <div className="flex items-center flex-wrap">
+                            {renderAllObjects10}
+                            {!showAll10 && showAllButton10 && (
+                                <button className="bg-purple-200 p-2 rounded-md t" onClick={() => setShowAll10(true)}>
+                                    Show all
+                                </button>
+                            )}
+                            {showAll10 && !showLessButton10 && (
+                                <button className="bg-purple-200 p-2 rounded-md t" onClick={() => setShowAll10(false)}>
+                                    Show Less
+                                </button>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>
-            <div className="flex items-center flex-wrap">
-                    {renderAllObjects10}
-                    {!showAll10 && showAllButton10 && (
-                        <button className="bg-purple-200 p-2 rounded-md t" onClick={() => setShowAll10(true)}>
-                            Show all
-                        </button>
-                    )}
-                    {showAll10 && !showLessButton10 && (
-                        <button className="bg-purple-200 p-2 rounded-md t" onClick={() => setShowAll10(false)}>
-                            Show Less
-                        </button>
-                    )}
-                </div>
         </div>
     );
 }
