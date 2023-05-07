@@ -571,7 +571,7 @@ export default function Home({ links }) {
             <div id="task9" className="flex justify-between items-start bg-[#f89622] p-2 rounded my-4">
                 <h1 className="font-semibold">TASK 9</h1>
             </div>
-            <div>
+            <div className="flex justify-center items-center flex-col">
                 <p>
                     The Function has already been showing some of the times on the previous Headers, but we will show
                     all the times here again.
@@ -596,7 +596,14 @@ export default function Home({ links }) {
                     </>
                 ) : (
                     <>
-                        <div>test</div>
+                        
+                        <p>Task 2 time : {task2time}ms</p>
+                        <p>Task 3 time : {task3time}ms</p>
+                        <p>Task 4 time : {task4time}ms</p>
+                        <p>Task 5 time : {task5time}ms</p>
+                        <p>Task 7 time : {task7time}ms</p>
+                        <p>Task 8 time : {task8time}ms</p>
+                    
                     </>
                 )}
             </div>
