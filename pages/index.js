@@ -13,7 +13,9 @@ import FlipButton from "@/components/Grid Options/FlipButton";
 export default function Home() {
     const [screenWidth, setScreenWidth] = useState(0);
     const [showAllButton, setShowAllButton] = useState(false);
+    const [showAllButton10, setShowAllButton10] = useState(false)
     const [showLessButton, setShowLessButton] = useState(false);
+    const [showLessButton10, setShowLessButton10] =useState(false)
     const [sizeData, setSizeData] = useState("");
     const [columnData1, setColumnData1] = useState(5);
     const [columnData4, setColumnData4] = useState(8);
@@ -37,6 +39,7 @@ export default function Home() {
     const [flipValue4, setFlipValue4] = useState(false);
     const [flipValue10, setFlipValue10] = useState(false)
     const [showAll, setShowAll] = useState(false);
+    const [showAll10, setShowAll10] = useState(false)
     const [task5content, setTask5Content] = useState("");
     const [task7content, setTask7content] = useState("");
     const [task8content, setTask8content] = useState("");
@@ -228,6 +231,7 @@ export default function Home() {
     }
 
     //TASK 10 - Generating Data and Sending them to the API with Axios
+    const [allowedPositions10, setAllowedPositions10] = useState([])
     function task10apiCall() {
         const finalBlackCellsArray = [];
         for (let i = 0; i < blackCellsArray10.length; i++) {
@@ -348,6 +352,7 @@ export default function Home() {
 
     //Show All Objects
     const objectsToRender = showAll ? allowedPositions : allowedPositions.slice(0, 3);
+    const objectsToRender10 = showAll10 ? allowedPositions10 : allowedPositions10.slice(0,3) 
     const renderAllObjects = objectsToRender.map((allowedPosition, i) => {
         return (
             <div className="inline-block mx-2" key={i}>
@@ -362,6 +367,20 @@ export default function Home() {
             </div>
         );
     });
+    const renderAllObjects10 = objectsToRender10.map((allowedPosition10, i)=>{
+        return (
+            <div className="inline-block mx-2" key={i}>
+                <Grid
+                    onHandleBlackCellsArray={handleBlackCellsArray10}
+                    isClickable={false}
+                    rows={rowData10}
+                    columns={columnData10}
+                    sizeData={sizeData}
+                    colorData={allowedPosition10}
+                />
+            </div>
+        )
+    })
 
     return (
         <div className="my-4 p-2 mt-20 md:px-6 lg:px-14">
@@ -712,6 +731,19 @@ export default function Home() {
                     </div>
                 </div>
             </div>
+            <div className="flex items-center flex-wrap">
+                    {renderAllObjects10}
+                    {!showAll10 && showAllButton10 && (
+                        <button className="bg-purple-200 p-2 rounded-md t" onClick={() => setShowAll10(true)}>
+                            Show all
+                        </button>
+                    )}
+                    {showAll10 && !showLessButton10 && (
+                        <button className="bg-purple-200 p-2 rounded-md t" onClick={() => setShowAll10(false)}>
+                            Show Less
+                        </button>
+                    )}
+                </div>
         </div>
     );
 }
