@@ -13,11 +13,11 @@ An example of a Hackathon project skeleton
 
 ## Team
  - Frontend Developers :
-  - Alexander Papaefthimiou
-  - Elias Sahlos
+   - Alexander Papaefthimiou
+   - Elias Sahlos
  - Backend Developers : 
-  - Maciej Ratkiewicz
-  - Ermina Trontzou
+   - Maciej Ratkiewicz
+   - Ermina Trontzou
 ## License
 
 [MIT](LICENSE)
