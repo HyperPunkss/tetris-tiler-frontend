@@ -23,17 +23,21 @@ export default function Home({ links }) {
     const [uniqueLetterData3, setUniqueLetterData3] = useState("");
     const [uniqueLetterData4, setUniqueLetterData4] = useState("");
     const [blackCellsArray, setBlackCellsArray] = useState([]);
+    const [blackCellsArray4, setBlackCellsArray4] = useState([])
     const [blackCellsArray5, setBlackCellsArray5] = useState([]);
     const [rotationValue4, setRotationValue4] = useState(false);
     const [flipValue4, setFlipValue4] = useState(false);
     const [showAll, setShowAll] = useState(false);
     const [task5content, setTask5Content] = useState("");
-    const [task5filled, setTask5filled] = useState();
-    const [task5unfilled, setTask5unfilled] = useState();
-    const [task2time, setTask2time] = useState();
-    const [task3time, setTask3time] = useState();
-    const [task4time, setTask4time] = useState();
-    const [task5time, setTask5time] = useState();
+    const [task8content, setTask8content] = useState("")
+    const [task5filled, setTask5filled] = useState(0);
+    const [task5unfilled, setTask5unfilled] = useState(0);
+    const [perimeterTask8, setPerimeterTask8] = useState(0)
+    const [task2time, setTask2time] = useState(0);
+    const [task3time, setTask3time] = useState(0);
+    const [task4time, setTask4time] = useState(0);
+    const [task5time, setTask5time] = useState(0);
+    const [task8time, setTask8time] = useState(0);
 
     //TASK 2 - Getting all the shape information from the API
     const [shapes, setShapes] = useState([]);
@@ -59,9 +63,10 @@ export default function Home({ links }) {
     const [allowedPositions, setAllowedPositions] = useState([]);
 
     function task4apiCall() {
+        console.log(blackCellsArray4);
         const finalBlackCellsArray = [];
-        for (let i = 0; i < blackCellsArray.length; i++) {
-            finalBlackCellsArray.push([blackCellsArray[i].col, rowData4 - blackCellsArray[i].row - 1]);
+        for (let i = 0; i < blackCellsArray4.length; i++) {
+            finalBlackCellsArray.push([blackCellsArray4[i].col, rowData4 - blackCellsArray4[i].row - 1]);
         }
         let task4data = JSON.stringify({
             gridSizeX: rowData4,
@@ -69,9 +74,9 @@ export default function Home({ links }) {
             letter: uniqueLetterData4,
             blackHoles: finalBlackCellsArray,
             allowRotations: rotationValue4,
-            allowFlip: flipValue4,
+            allowFlip: flipValue4
         });
-        // console.log(task4data);
+        console.log(task4data);
         let config = {
             method: "post",
             maxBodyLength: Infinity,
@@ -104,8 +109,8 @@ export default function Home({ links }) {
         let task5data = JSON.stringify({
             gridSizeX: rowData5,
             gridSizeY: columnData5,
-            blackHoles: finalBlackCellsArray,
-        });
+            blackHoles: finalBlackCellsArray
+        })
         console.log(finalBlackCellsArray);
         // console.log(task5data);
         let config = {
@@ -131,6 +136,23 @@ export default function Home({ links }) {
             .catch((error) => {
                 console.log(error);
             });
+    }
+
+    //TASK 8
+    // const [shapes, setShapes] = useState([]);
+
+     function task8apiCall() {
+         axios.get("http://matsaki95.ddns.net:8900/api/v1/a8-task").then((response) => {
+            const jsonArray = response.data;
+            const firstObject = jsonArray[0];
+            console.log(firstObject);
+
+            setTask8content(firstObject.grid);
+            setPerimeterTask8(firstObject.perimeter);
+            setTask8time(firstObject.timer);
+        }).catch((error)=>{
+            console.log(error);
+        });
     }
 
     //TASK 10 - Generating Data and Sending them to the API with Axios
@@ -191,6 +213,10 @@ export default function Home({ links }) {
 
     function handleBlackCellsArray(blackCellsArray) {
         setBlackCellsArray(blackCellsArray);
+    }
+
+    function handleBlackCellsArray4(blackCellsArray){
+        setBlackCellsArray4(blackCellsArray)
     }
 
     function handleBlackCellsArray5(blackCellsArray) {
@@ -317,7 +343,7 @@ export default function Home({ links }) {
                 <div className="flex flex-col my-4 ">
                     <div className="flex justify-center items-center">
                         <Grid
-                            onHandleBlackCellsArray={handleBlackCellsArray}
+                            onHandleBlackCellsArray={handleBlackCellsArray4}
                             isClickable={true}
                             rows={rowData4}
                             columns={columnData4}
@@ -411,6 +437,25 @@ export default function Home({ links }) {
                         <h1 className="font-semibold">{task5content}</h1>
                     </div>
                 )}
+            </div>
+            <h1 className="font-semibold bg-red-500 p-2 rounded my-4">TASK 8</h1>
+            <div className="flex justify-center items-center">
+                <Grid
+                    onHandleBlackCellsArray={handleBlackCellsArray}
+                    isClickable={false}
+                    rows={5}
+                    columns={5}
+                    sizeData={sizeData}
+                    colorData={task8content}
+                />
+            </div>
+            <div>
+                <p>Perimeter = {perimeterTask8}</p>
+            </div>
+            <div className="md:ml-4 lg:ml-8 my-4">
+                <button className="rounded bg-white p-2 my-2 border-2 border-black flex" onClick={task8apiCall}>
+                    Generate a shape and Calculate the Perimeter
+                </button>
             </div>
             <h1 className="font-semibold bg-[#f89622] p-2 rounded my-4">TASK 9</h1>
             <div>
