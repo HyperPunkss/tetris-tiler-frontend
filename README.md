@@ -17,7 +17,7 @@ Because we want fast results we counted the time our algorithms take to run and 
 
 ## Technicals
   - Frontend Development :
-   - Next.js
+   	- Next.js
 
 ## Requirements
 For github clone : 
