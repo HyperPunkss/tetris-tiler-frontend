@@ -5,7 +5,7 @@ function SizePicker({ onSizeChange }) {
 
     useEffect(() => {
         onSizeChange(sizeValue);
-    }, [sizeValue]);
+    }, [sizeValue,onSizeChange]);
 
     return (
         <div className="my-4 mr-4">

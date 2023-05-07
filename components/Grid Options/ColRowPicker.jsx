@@ -6,7 +6,7 @@ function ColRowPicker({ onColRowChange }) {
 
     useEffect(() => {
         onColRowChange([colValue, rowValue]);
-    }, [colValue, rowValue]);
+    }, [colValue, rowValue,onColRowChange]);
 
     function handleValueChange(event) {
         event.preventDefault();
