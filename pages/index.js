@@ -23,6 +23,7 @@ export default function Home({ links }) {
     const [uniqueLetterData3, setUniqueLetterData3] = useState("");
     const [uniqueLetterData4, setUniqueLetterData4] = useState("");
     const [blackCellsArray, setBlackCellsArray] = useState([]);
+    const [blackCellsArray4, setBlackCellsArray4] = useState([])
     const [blackCellsArray5, setBlackCellsArray5] = useState([]);
     const [rotationValue4, setRotationValue4] = useState(false);
     const [flipValue4, setFlipValue4] = useState(false);
@@ -64,9 +65,10 @@ export default function Home({ links }) {
     const [allowedPositions, setAllowedPositions] = useState([]);
 
     function task4apiCall() {
+        console.log(blackCellsArray4);
         const finalBlackCellsArray = [];
-        for (let i = 0; i < blackCellsArray.length; i++) {
-            finalBlackCellsArray.push([blackCellsArray[i].col, rowData4 - blackCellsArray[i].row - 1]);
+        for (let i = 0; i < blackCellsArray4.length; i++) {
+            finalBlackCellsArray.push([blackCellsArray4[i].col, rowData4 - blackCellsArray4[i].row - 1]);
         }
         let task4data = JSON.stringify({
             gridSizeX: rowData4,
@@ -74,9 +76,9 @@ export default function Home({ links }) {
             letter: uniqueLetterData4,
             blackHoles: finalBlackCellsArray,
             allowRotations: rotationValue4,
-            allowFlip: flipValue4,
+            allowFlip: flipValue4
         });
-        // console.log(task4data);
+        console.log(task4data);
         let config = {
             method: "post",
             maxBodyLength: Infinity,
@@ -111,7 +113,6 @@ export default function Home({ links }) {
             gridSizeY: columnData5,
             blackHoles: finalBlackCellsArray
         })
-        console.log(finalBlackCellsArray);
         // console.log(task5data);
         let config = {
             method: "post",
@@ -213,6 +214,10 @@ export default function Home({ links }) {
 
     function handleBlackCellsArray(blackCellsArray) {
         setBlackCellsArray(blackCellsArray);
+    }
+
+    function handleBlackCellsArray4(blackCellsArray){
+        setBlackCellsArray4(blackCellsArray)
     }
 
     function handleBlackCellsArray5(blackCellsArray) {
@@ -343,7 +348,7 @@ export default function Home({ links }) {
                 <div className="flex flex-col my-4 ">
                     <div className="flex justify-center items-center">
                         <Grid
-                            onHandleBlackCellsArray={handleBlackCellsArray}
+                            onHandleBlackCellsArray={handleBlackCellsArray4}
                             isClickable={true}
                             rows={rowData4}
                             columns={columnData4}
