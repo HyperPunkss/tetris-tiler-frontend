@@ -276,11 +276,11 @@ export default function Home({ links }) {
                     </div>
                 </div>
             </div>
-            <div id="task2" className="flex justify-between items-start bg-[#f89622] p-2 rounded my-4">
+            <div id="task2" className="flex justify-between items-start bg-[#f89622] p-2 rounded my-4 ">
                 <h1 className="font-semibold">TASK 2</h1>
                 <h1 className="font-semibold">Time :</h1>
             </div>
-            <div className="border-2 border-orange-200">
+            <div className="border-2 border-orange-200 pb-4">
                 <div className="flex justify-center items-center md:ml-4 lg:ml-8 my-4">
                     <button className="hover:bg-orange-200 rounded bg-white p-2 my-2 border-2 border-black flex" onClick={task2apiCall}>
                         Generate all the shapes!
