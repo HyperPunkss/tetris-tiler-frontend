@@ -2,10 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-.custom-img{
-    background-image: url('../styles/icons/tetris-banner.png');
+.custom-img {
+    background-image: url("../styles/icons/tetris-banner.png");
 }
 
-.custom-img-dark{
+.custom-img-dark {
     background-image: url("../styles/icons/tetris-banner-dark.png");
+}
+
+.table-head-img{
+    background-image: url("../styles/icons/tetris-banner-dark-full.png");
+}
+
+.no-scroll {
+    overflow-y: hidden;
+    position: fixed;
 }

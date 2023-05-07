@@ -9,6 +9,7 @@ import LetterPickerUnique from "@/components/Grid Options/LetterPickerUnique";
 import { loadGetInitialProps } from "next/dist/shared/lib/utils";
 import RotationButton from "@/components/Grid Options/RotationButton";
 import FlipButton from "@/components/Grid Options/FlipButton";
+import TasksTable from "@/components/TasksTable";
 
 export default function Home({ links }) {
     const [showAllButton, setShowAllButton] = useState(false);
@@ -23,24 +24,30 @@ export default function Home({ links }) {
     const [uniqueLetterData3, setUniqueLetterData3] = useState("");
     const [uniqueLetterData4, setUniqueLetterData4] = useState("");
     const [blackCellsArray, setBlackCellsArray] = useState([]);
-    const [blackCellsArray4, setBlackCellsArray4] = useState([])
+    const [blackCellsArray4, setBlackCellsArray4] = useState([]);
     const [blackCellsArray5, setBlackCellsArray5] = useState([]);
     const [rotationValue4, setRotationValue4] = useState(false);
     const [flipValue4, setFlipValue4] = useState(false);
     const [showAll, setShowAll] = useState(false);
     const [task5content, setTask5Content] = useState("");
-    const [task8content, setTask8content] = useState("")
+    const [task8content, setTask8content] = useState("");
     const [task5filled, setTask5filled] = useState(0);
     const [task5unfilled, setTask5unfilled] = useState(0);
-    const [perimeterTask8, setPerimeterTask8] = useState(0)
+    const [perimeterTask8, setPerimeterTask8] = useState(0);
     const [task2time, setTask2time] = useState(0);
     const [task3time, setTask3time] = useState(0);
     const [task4time, setTask4time] = useState(0);
     const [task5time, setTask5time] = useState(0);
     const [task8time, setTask8time] = useState(0);
 
+    const [tasksCompleted, setTasksCompleted] = useState([]);
     //TASK 2 - Getting all the shape information from the API
     const [shapes, setShapes] = useState([]);
+
+    useEffect(() => {
+        console.log(tasksCompleted);
+    }, [tasksCompleted])
+
 
     async function task2apiCall() {
         await axios.get("http://matsaki95.ddns.net:8900/api/v1/a2-task").then((response) => {
@@ -56,6 +63,11 @@ export default function Home({ links }) {
         await axios.get("http://matsaki95.ddns.net:8900/api/v1/a3-task/?letter=" + uniqueLetterData3).then((response) => {
             setTask3time(response.data.pop());
             setRotations(response.data);
+            setTasksCompleted((prev) => {
+                const filteredTasks = prev.filter((task) => task.task !== "task3"); // filter out existing task3
+                const newTask = { task: "task3", time: task3time };
+                return [...filteredTasks, newTask]; // add the new task3
+            });
         });
     }
 
@@ -74,7 +86,7 @@ export default function Home({ links }) {
             letter: uniqueLetterData4,
             blackHoles: finalBlackCellsArray,
             allowRotations: rotationValue4,
-            allowFlip: flipValue4
+            allowFlip: flipValue4,
         });
         console.log(task4data);
         let config = {
@@ -94,6 +106,11 @@ export default function Home({ links }) {
             .then((response) => {
                 setTask4time(response.data.pop());
                 setAllowedPositions(response.data);
+                setTasksCompleted((prev) => {
+                    const filteredTasks = prev.filter((task) => task.task !== "task4"); // filter out existing task3
+                    const newTask = { task: "task4", time: task4time };
+                    return [...filteredTasks, newTask]; // add the new task3
+                });
             })
             .catch((error) => {
                 console.log(error);
@@ -109,8 +126,8 @@ export default function Home({ links }) {
         let task5data = JSON.stringify({
             gridSizeX: rowData5,
             gridSizeY: columnData5,
-            blackHoles: finalBlackCellsArray
-        })
+            blackHoles: finalBlackCellsArray,
+        });
         console.log(finalBlackCellsArray);
         // console.log(task5data);
         let config = {
@@ -141,18 +158,21 @@ export default function Home({ links }) {
     //TASK 8
     // const [shapes, setShapes] = useState([]);
 
-     function task8apiCall() {
-         axios.get("http://matsaki95.ddns.net:8900/api/v1/a8-task").then((response) => {
-            const jsonArray = response.data;
-            const firstObject = jsonArray[0];
-            console.log(firstObject);
+    function task8apiCall() {
+        axios
+            .get("http://matsaki95.ddns.net:8900/api/v1/a8-task")
+            .then((response) => {
+                const jsonArray = response.data;
+                const firstObject = jsonArray[0];
+                console.log(firstObject);
 
-            setTask8content(firstObject.grid);
-            setPerimeterTask8(firstObject.perimeter);
-            setTask8time(firstObject.timer);
-        }).catch((error)=>{
-            console.log(error);
-        });
+                setTask8content(firstObject.grid);
+                setPerimeterTask8(firstObject.perimeter);
+                setTask8time(firstObject.timer);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     //TASK 10 - Generating Data and Sending them to the API with Axios
@@ -215,8 +235,8 @@ export default function Home({ links }) {
         setBlackCellsArray(blackCellsArray);
     }
 
-    function handleBlackCellsArray4(blackCellsArray){
-        setBlackCellsArray4(blackCellsArray)
+    function handleBlackCellsArray4(blackCellsArray) {
+        setBlackCellsArray4(blackCellsArray);
     }
 
     function handleBlackCellsArray5(blackCellsArray) {
@@ -247,17 +267,12 @@ export default function Home({ links }) {
         );
     });
 
-    console.log("TASK2 TIME", task2time);
-    console.log("TASK3 TIME", task3time);
-    console.log("TASK4 TIME", task4time);
-    console.log("TASK5 TIME", task5time);
+    
     return (
-        <div id="task1" className="my-4 p-2 md:px-6 lg:px-14">
+        <div id="task1" className="my-4 p-2 mt-20 md:px-6 lg:px-14">
             <div className="flex justify-between items-start bg-red-500 p-2 rounded my-4">
                 <h1 className="font-semibold ">TASK 1</h1>
-                <h1 className="font-semibold ">Time : </h1>
             </div>
-
             <div className="border-2 border-red-200 ">
                 <div className="flex flex-col my-4">
                     <div className="flex justify-center items-center">
@@ -278,7 +293,7 @@ export default function Home({ links }) {
             </div>
             <div id="task2" className="flex justify-between items-start bg-[#f89622] p-2 rounded my-4 ">
                 <h1 className="font-semibold">TASK 2</h1>
-                <h1 className="font-semibold">Time :</h1>
+                <h1 className="font-semibold">Time : {task2time}ms</h1>
             </div>
             <div className="border-2 border-orange-200 pb-4">
                 <div className="flex justify-center items-center md:ml-4 lg:ml-8 my-4">
@@ -305,7 +320,7 @@ export default function Home({ links }) {
             </div>
             <div id="task3" className="flex justify-between items-start bg-[#fde100] p-2 rounded my-4">
                 <h1 className="font-semibold">TASK 3</h1>
-                <h1 className="font-semibold">Time : </h1>
+                <h1 className="font-semibold">Time : {task3time}ms </h1>
             </div>
             <div className="border-2 border-yellow-200 pb-4">
                 <div className="flex justify-center items-center md:ml-4 lg:ml-8 my-4">
@@ -337,7 +352,7 @@ export default function Home({ links }) {
 
             <div id="task4" className="flex justify-between items-start bg-[#4eb748] p-2 rounded my-4">
                 <h1 className="font-semibold">TASK 4</h1>
-                <h1 className="font-semibold">Time : </h1>
+                <h1 className="font-semibold">Time : {task4time}ms </h1>
             </div>
             <div className="border-2 border-green-200 pb-4">
                 <div className="flex flex-col my-4 ">
@@ -391,8 +406,10 @@ export default function Home({ links }) {
                     )}
                 </div>
             </div>
-
-            <h1 className="font-semibold bg-blue-400 p-2 rounded my-4">TASK 5</h1>
+            <div id="task5" className="flex justify-between items-start bg-blue-400 p-2 rounded my-4">
+                <h1 className="font-semibold">TASK 5</h1>
+                <h1 className="font-semibold">Time : {task5time}ms </h1>
+            </div>
             <div className="flex flex-col my-4">
                 <div className="flex justify-center items-center">
                     <Grid
@@ -407,7 +424,7 @@ export default function Home({ links }) {
                 <div className="flex justify-center items-center mr-10 mt-4">
                     <div className="ml-[14px]">
                         <p>Filled = {task5filled}</p>
-                        <p>Unfilled = {task5unfilled}</p>
+                        <p>Unfilled = {task5unfilled}ms</p>
                     </div>
                 </div>
                 <div className="flex justify-center items-center mr-10 mt-4">
@@ -423,14 +440,17 @@ export default function Home({ links }) {
                     </button>
                 </div>
             </div>
-            <h1 className="font-semibold bg-blue-700 p-2 rounded my-4">TASK 6</h1>
+            <div id="task6" className="flex justify-between items-start bg-purple-400 p-2 rounded my-4">
+                <h1 className="font-semibold">TASK 6</h1>
+                <h1 className="font-semibold">Time : {task5time}ms</h1>
+            </div>
             <div>
                 <p className="font">We are gonna showcase the previous task`s shape in Plain Text</p>
                 {task5content.length === 0 ? (
-                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 mt-4 rounded relative" role="alert">
-                        <strong class="font-bold">Warning! </strong>
-                        <span class="block sm:inline">Please press the `Generate A Random Shape Button`</span>
-                        <span class="absolute top-0 bottom-0 right-0 px-4 py-3"></span>
+                    <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 mt-4 rounded relative" role="alert">
+                        <strong className="font-bold">Warning! </strong>
+                        <span className="block sm:inline">Please press the `Generate A Random Shape Button`</span>
+                        <span className="absolute top-0 bottom-0 right-0 px-4 py-3"></span>
                     </div>
                 ) : (
                     <div className="bg-gray-200 text-center p-2 mx-auto w-[300px] mt-2">
@@ -438,7 +458,10 @@ export default function Home({ links }) {
                     </div>
                 )}
             </div>
-            <h1 className="font-semibold bg-red-500 p-2 rounded my-4">TASK 8</h1>
+            <div id="task8" className="flex justify-between items-start bg-red-500 p-2 rounded my-4">
+                <h1 className="font-semibold">TASK 8</h1>
+                <h1 className="font-semibold">Time : {task8time}ms</h1>
+            </div>
             <div className="flex justify-center items-center">
                 <Grid
                     onHandleBlackCellsArray={handleBlackCellsArray}
@@ -457,7 +480,9 @@ export default function Home({ links }) {
                     Generate a shape and Calculate the Perimeter
                 </button>
             </div>
-            <h1 className="font-semibold bg-[#f89622] p-2 rounded my-4">TASK 9</h1>
+            <div id="task9" className="flex justify-between items-start bg-[#f89622] p-2 rounded my-4">
+                <h1 className="font-semibold">TASK 9</h1>
+            </div>
             <div>
                 <p>
                     The Function has already been showing some of the times on the previous Headers, but we will show all the times here
@@ -465,18 +490,15 @@ export default function Home({ links }) {
                 </p>
                 {task2time === undefined || task3time === undefined || task4time === undefined || task5time === undefined ? (
                     <>
-                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 mt-4 rounded relative" role="alert">
-                            <strong class="font-bold">Warning! </strong>
-                            <span class="block sm:inline">Please run all the tasks to be able to see each task time </span>
-                            <span class="absolute top-0 bottom-0 right-0 px-4 py-3"></span>
+                        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 mt-4 rounded relative" role="alert">
+                            <strong className="font-bold">Warning! </strong>
+                            <span className="block sm:inline">Please run all the tasks to be able to see each task time </span>
+                            <span className="absolute top-0 bottom-0 right-0 px-4 py-3"></span>
                         </div>
                     </>
                 ) : (
                     <>
-                        <p>Task 2 time: {task2time}ms</p>
-                        <p>Task 3 time: {task3time}ms</p>
-                        <p>Task 4 time: {task4time}ms</p>
-                        <p>Task 5 time: {task5time}ms</p>
+                        <TasksTable />
                     </>
                 )}
             </div>
