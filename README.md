@@ -21,7 +21,9 @@ Because we want fast results we counted the time our algorithms take to run and 
 
 ## Requirements
 For github clone : 
+
 	Install Node.js 
+	
 	Run command npm install after cloning
 
 ## Install
